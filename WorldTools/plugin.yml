@@ -1,0 +1,8 @@
+name: WorldTools
+main: com.TopicaRP.WorldTools.WorldTools
+author: Spenk
+version: 1.0
+commands:
+    ismelt:
+        description: add new furnace recipes!
+        usage: /ismelt help - to see all ismelt commands.
