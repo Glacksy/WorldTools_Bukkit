@@ -3,6 +3,63 @@ main: com.TopicaRP.WorldTools.WorldTools
 author: Spenk
 version: 1.0
 commands:
-    ismelt:
-        description: add new furnace recipes!
-        usage: /ismelt help - to see all ismelt commands.
+    melt:
+        description: Melt snow/ice in a custom radius.
+        usage: /melt <radius> - Melt snow/ice in a custom radius.
+    snow:
+        description: Place snow and ice in a custom radius.
+        usage: /snow <radius> - Melt snow/ice in a custom radius.
+    kill:
+        description: Melt snow/ice in a custom radius.
+        usage: /kill <player> - Melt snow/ice in a custom radius.
+    heal:
+        description: Heal yourself to full health.
+        usage: /heal <player> - Heal yourself to full health.
+    wreplace:
+        description: Replace blocks in a custom radius.
+        usage: /wreplace <from> <to> <radius> - Melt snow/ice in a custom radius.
+    killmobs:
+        description: Kill all mobs.
+        usage: /killmobs - Kill all mobs.
+    cmob:
+        description: Kill all mobs in a custom radius.
+        usage: /cmob <radius> - Kill all mobs in a custom radius.
+    waterfix:
+        description: Fix water in a custom radius.
+        usage: /waterfix <radius> - Fix water in a custom radius.
+    lavafix:
+        description: Fix lava in a custom radius.
+        usage: /lavafix <radius> - Fix lava in a custom radius.
+    ext:
+        description: Melt snow/ice in a custom radius.
+        usage: /ext <radius> - Extinguish fire in a custom radius.
+    drain:
+        description: Drain water and lava in a custom radius.
+        usage: /drain <radius> - Drain water and lava in a custom radius.
+    drainwater:
+        description: Drain water in a custom radius.
+        usage: /drainwater <radius> - Drain water in a custom radius.
+    drainlava:
+        description: Drain lava in a custom radius.
+        usage: /drainlava <radius> - Drain lava in a custom radius.
+    sinv:
+        description: Save all inventories.
+        usage: sinv - Save all inventories.
+    freeze:
+        description: Freeze a player.
+        usage: /freeze <player> - Freeze a player.
+    switchworld:
+        description: Switch to another world.
+        usage: /switchworld <world> - Switch to another world.
+    forcewarp:
+        description: Force a player to a warp location.
+        usage: /forcewarp <player> <warp> - Force a player to a warp location.
+    getip:
+        description: Get the ip of a player.
+        usage: /getip <player> - Get the ip of a player.
+    feed:
+        description: Feed another player.
+        usage: /feed <player> - Feed another player.
+    lighter:
+        description: Give yourself a lighter.
+        usage: /lighter - Give yourself a lighter.

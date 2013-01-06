@@ -35,10 +35,27 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Logger;
 
+import net.minecraft.server.v1_4_6.EntityOcelot;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Ocelot;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Wolf;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBurnEvent;
+import org.bukkit.event.block.BlockDispenseEvent;
+import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
+import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
+import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.entity.EntityDamageByBlockEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 
 public class WorldToolsListener implements Listener {   
@@ -50,22 +67,22 @@ WorldToolsProperties properties = new WorldToolsProperties();
 
    public boolean onExplode(Block block)
    {
-	 if ((BlockTntExplosion) && (block.getStatus() == 1)) {
-	   return true;
+	 if ((properties.BlockTntExplosion) && (block.getStatus() == 1)) {
+	   event.setCancelled(true);return;
 	 }
-	 if ((BlockCreeperExplosion) && (block.getStatus() == 2)) {
-		 if (!DisableCreeperDamage){
-			for (Player player : etc.getServer().getPlayerList()) {
+	 if ((properties.BlockCreeperExplosion) && (block.getStatus() == 2)) {
+		 if (!properties.DisableCreeperDamage){
+			for (Player player : Bukkit.getServer().getOnlinePlayers()) {
 			    if (WorldToolsVoids.isInExplosionRadius(player, block)) {
 			     player.setHealth(player.getHealth() - WorldToolsVoids.calculateDamage(player, block));
 			    if (player.getHealth() < 1) {
 			        player.dropInventory();}}}}
-	   return true;
+	   event.setCancelled(true);return;
 	 }
-     if ((BlockGhastExplosion) && (block.getStatus() == 3)) {
-       return true;
+     if ((properties.BlockGhastExplosion) && (block.getStatus() == 3)) {
+       event.setCancelled(true);return;
      }
-     return false;
+     return;
    }
    
    /**
@@ -74,11 +91,11 @@ WorldToolsProperties properties = new WorldToolsProperties();
     */
    public boolean onPortalCreate(Block[][] blocks)
    {
-	if (BlockPortalCreating)
+	if (properties.BlockPortalCreating)
 	{
-	  return true;
+	  event.setCancelled(true);return;
     }
-	return false;
+	return;
    }
    
    /**
@@ -86,11 +103,11 @@ WorldToolsProperties properties = new WorldToolsProperties();
     */
    public boolean onPortalDestroy(Block[][] blocks)
    {
-	if (BlockPortalDestroying)
+	if (properties.BlockPortalDestroying)
 	{
-		return true;
+		event.setCancelled(true);return;
     }
-	return false;
+	return;
    }
 
    /**
@@ -98,11 +115,11 @@ WorldToolsProperties properties = new WorldToolsProperties();
     */
    public boolean onEndermanPickup(Enderman entity, Block block)
    {
-    if (DisableEndermanBlockPickup)
+    if (properties.DisableEndermanBlockPickup)
     {
-	   return true;
+	   event.setCancelled(true);return;
     }
-   return false;
+   return;
    }
 
 
@@ -111,214 +128,238 @@ WorldToolsProperties properties = new WorldToolsProperties();
     * Block different types of fire stuff
     * @author Glacksy
     */
-   public boolean onIgnite(Block block, Player player)
+   @EventHandler
+   public void onBlockIgnite(BlockIgniteEvent event)
    {
-     if ((BlockLavaFire) && (block.getStatus() == 1)) {
-       return true;
+	   Block block = event.getBlock();
+	   IgniteCause cause = event.getCause();
+     if ((properties.BlockLavaFire) && (cause == IgniteCause.LAVA)) {
+       event.setCancelled(true);
+       return;
      }
-     if ((BlockLighter) && (block.getStatus() == 2))
+     if ((properties.BlockLighter) && (cause == IgniteCause.FLINT_AND_STEEL)
      {
-       return true;
+         event.setCancelled(true);
+         return;
      }
-     if ((BlockFireSpread) && (block.getStatus() == 3)) {
-       return true;
+     if ((properties.BlockFireSpread) && (cause == IgniteCause.FIREBALL) {
+         event.setCancelled(true);
+         return;
      }
-     if ((BlockFireBlockDestory) && (block.getStatus() == 4)) {
-         return true;
+     if ((properties.BlockFireBlockDestory) && (cause == IgniteCause.FIREBALL) {
+         event.setCancelled(true);
+         return;
      }
-     if ((BlockLightningFire) && (block.getStatus() == 5)) {
-         return true;
+     if ((properties.BlockLightningFire) && (cause == IgniteCause.LIGHTNING) {
+         event.setCancelled(true);
+         return;
      }
-     return false;
+     return;
    }
    
    /**
     * Disable water and lava flow with config
     * @author Glacksy
     */
-   public boolean onFlow(Block blockFrom, Block blockTo)
+   @EventHandler
+   public void onBlockFromTo(BlockFromToEvent event)
    {
-	if ((DisableWaterFlow) && (blockFrom.getType() == 8 || blockFrom.getType() == 9))
+	   Block blockFrom = event.getBlock();
+	   Block blockTo = event.getToBlock();
+	if ((properties.DisableWaterFlow) && (blockFrom.getTypeId() == 8 || blockFrom.getTypeId() == 9))
    {
-		return true;
+		event.setCancelled(true);
+		return;
    }
-	if ((DisableLavaFlow) && (blockFrom.getType() == 10 || blockFrom.getType() == 11))
+	if ((properties.DisableLavaFlow) && (blockFrom.getTypeId() == 10 || blockFrom.getTypeId() == 11))
    {
-		return true;
+		event.setCancelled(true);
+		return;
    }
-       if ((ClassicWater) && (blockFrom.getType() == 8) || (blockFrom.getType() == 9)) {
-	      int bB = blockFrom.getWorld().getBlockIdAt(blockFrom.getX(), blockFrom.getY() - 1, blockFrom.getZ()); 
+       if ((properties.ClassicWater) && (blockFrom.getTypeId() == 8) || (blockFrom.getTypeId() == 9)) {
+	      int bB = blockFrom.getWorld().getBlockTypeIdAt(blockFrom.getX(), blockFrom.getY() - 1, blockFrom.getZ()); 
 	      if ((bB != 0) && (bB != 8) && (bB != 9)) { 
-	    	  blockFrom.getWorld().setBlockAt(9, blockFrom.getX(), blockFrom.getY(), blockFrom.getZ());
-	        return false;
+	    	  blockFrom.getWorld().getBlockAt(blockFrom.getX(), blockFrom.getY(), blockFrom.getZ()).setTypeId(9);
+	    	  return;
 	    }
        }
-	return false;
+	return;
    }
 	/**
 	 * 
 	 * TODO: damage values support
 	 */
-/*	if (DisallowLavaSpreadBlocks != null && blockFrom.getType() == 10 || blockFrom.getType() == 11) {
-		int a1337 = blockFrom.getWorld().getBlockIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
+/*	if (DisallowLavaSpreadBlocks != null && blockFrom.getTypeId() == 10 || blockFrom.getTypeId() == 11) {
+		int a1337 = blockFrom.getWorld().getBlockTypeIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
         if (!DisallowLavaSpreadBlocks.contains(a1337)) {
-            return true;  //TODO: Test this code, added multiworld used to be etc.getServer
+            event.setCancelled(true);return;  //TODO: Test this code, added multiworld used to be etc.getServer
      //   }
     } */
-//	return false;
+//	return;
   // }
 	/**
 	 * TODO: Multiworld support and damage values support (damage values impossibru :O)
 	 * Does ONLY support default world at the moment
 	 */
-	/*if (DisallowWaterSpreadBlocks != null && blockFrom.getType() == 8 || blockFrom.getType() == 9) {
-		int a1337 = etc.getServer().getWorld(0).getBlockIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
+	/*if (DisallowWaterSpreadBlocks != null && blockFrom.getTypeId() == 8 || blockFrom.getTypeId() == 9) {
+		int a1337 = etc.getServer().getWorld(0).getBlockTypeIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
         if (!DisallowLavaSpreadBlocks.contains(a1337)) {
-            return true;
+            event.setCancelled(true);return;
         }
     }
-	return false;
+	return;
    }*/
    
    /**
     * List of damage types which can be disabled
     */
-   public boolean onDamage(PluginLoader.DamageType type, BaseEntity attacker, BaseEntity defender, int amount)
+   @EventHandler
+   public void onEntityDamageByBlock(EntityDamageByBlockEvent event)
    {
-     if (defender.isPlayer()) {
-       defender.getPlayer();
+	   Entity e = event.getEntity();
+	   DamageCause type = event.getCause();
+     if (e instanceof Player) {
+       Player player = ((Player) e).getPlayer();
 
-       if ((DisableFallDamage) && (type == PluginLoader.DamageType.FALL)) {
-         return true;
+       if ((properties.DisableFallDamage) && (type == DamageCause.FALL)) {
+         event.setCancelled(true);
+         return;
        }
-       if ((DisableLavaDamage) && (type == PluginLoader.DamageType.LAVA)) {
-         return true;
+       if ((properties.DisableLavaDamage) && (type == DamageCause.LAVA)) {
+         event.setCancelled(true);return;
        }
-       if ((DisableFireDamage) && ((type == PluginLoader.DamageType.FIRE))) { 
-         return true;
+       if ((properties.DisableFireDamage) && ((type == DamageCause.FIRE))) { 
+         event.setCancelled(true);return;
        }
-       if ((DisableFireTickDamage) && (type == PluginLoader.DamageType.FIRE_TICK)) {
-           return true;
+       if ((properties.DisableFireTickDamage) && (type == DamageCause.FIRE_TICK)) {
+           event.setCancelled(true);return;
         }
-       if ((DisableCactusDamage) && (type == PluginLoader.DamageType.CACTUS)) {
-           return true;
+       if ((properties.DisableCactusDamage) && (type == DamageCause.CONTACT)) {
+           event.setCancelled(true);return;
        }
-       if ((DisableEntityDamage) && (type == PluginLoader.DamageType.ENTITY)) {
-           return true;
+       if ((properties.DisableEntityDamage) && (type == DamageCause.ENTITY_ATTACK)) {
+           event.setCancelled(true);return;
        }
-       if ((DisableCreeperDamage) && (type == PluginLoader.DamageType.CREEPER_EXPLOSION)) {
-           return true;
+       if ((properties.DisableCreeperDamage) && (type == DamageCause.ENTITY_EXPLOSION)) {
+           event.setCancelled(true);return;
        }
-       if ((DisableLightningDamage) && (type == PluginLoader.DamageType.LIGHTNING)) {
-           return true;
+       if ((properties.DisableLightningDamage) && (type == DamageCause.LIGHTNING)) {
+           event.setCancelled(true);return;
        }
-       if ((DisableStarvationDamage) && (type == PluginLoader.DamageType.STARVATION)) {
-           return true;
+       if ((properties.DisableStarvationDamage) && (type == DamageCause.STARVATION)) {
+           event.setCancelled(true);return;
          }
-       if ((DisableSuffocationDamage) && (type == PluginLoader.DamageType.SUFFOCATION)) {
-          return true;
+       if ((properties.DisableSuffocationDamage) && (type == DamageCause.SUFFOCATION)) {
+          event.setCancelled(true);return;
          }
-       if ((DisableWaterDamage) && (type == PluginLoader.DamageType.WATER)) {
-           return true;
+       if ((properties.DisableWaterDamage) && (type == DamageCause.DROWNING)) {
+           event.setCancelled(true);return;
         }
-       if ((DisablePotionDamage) && (type == PluginLoader.DamageType.POTION)) {
-           return true;
+       if ((properties.DisablePotionDamage) && (type == DamageCause.POISON)) {
+           event.setCancelled(true);return;
         }
      }
-       if (defender.getEntity() instanceof OEntityWolf){
-				Wolf wolf = new Wolf((OEntityWolf) defender.getEntity());
-				wolf.isTame(); {
+       if (e instanceof Wolf){
+				Wolf wolf = (Wolf) e;
+				wolf.isTamed(); {
     	  
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.FALL)) {
-             return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.FALL)) {
+             event.setCancelled(true);return;
            }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.LAVA)) {
-             return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.LAVA)) {
+             event.setCancelled(true);return;
            }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.FIRE_TICK)) {
-               return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.FIRE_TICK)) {
+               event.setCancelled(true);return;
             }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.CACTUS)) {
-               return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.CONTACT)) {
+               event.setCancelled(true);return;
            }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.LIGHTNING)) {
-               return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.LIGHTNING)) {
+               event.setCancelled(true);return;
            }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.SUFFOCATION)) {
-              return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.SUFFOCATION)) {
+              event.setCancelled(true);return;
              }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.WATER)) {
-               return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.DROWNING)) {
+               event.setCancelled(true);return;
             }
-           if ((AntiWolfDumbness) && (type == PluginLoader.DamageType.POTION)) {
-               return true;
+           if ((properties.AntiWolfDumbness) && (type == DamageCause.POISON)) {
+               event.setCancelled(true);return;
             }
            }
        }
-			if (defender.getEntity() instanceof OEntityOcelot){
-					Ocelot ocelot = new Ocelot((OEntityOcelot) defender.getEntity());
-					ocelot.isTame(); {
-	    	  
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.FALL)) {
-	             return true;
+			if (e instanceof Ocelot){
+					Ocelot ocelot = (Ocelot)e;
+					if (ocelot.isTamed()){
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.FALL)) {
+	             event.setCancelled(true);return;
 	           }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.LAVA)) {
-	             return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.LAVA)) {
+	             event.setCancelled(true);return;
 	           }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.FIRE_TICK)) {
-	               return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.FIRE_TICK)) {
+	               event.setCancelled(true);return;
 	            }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.CACTUS)) {
-	               return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.CONTACT)) {
+	               event.setCancelled(true);return;
 	           }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.LIGHTNING)) {
-	               return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.LIGHTNING)) {
+	               event.setCancelled(true);return;
 	           }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.SUFFOCATION)) {
-	              return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.SUFFOCATION)) {
+	              event.setCancelled(true);return;
 	             }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.WATER)) {
-	               return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.DROWNING)) {
+	               event.setCancelled(true);return;
 	            }
-	           if ((AntiOcelotDumbness) && (type == PluginLoader.DamageType.POTION)) {
-	               return true;
+	           if ((properties.AntiOcelotDumbness) && (type == DamageCause.POISON)) {
+	               event.setCancelled(true);return;
 	            }
 	           }
           }	      
-     return false;
+     return;
    }
    
    /**
     * Disable block physics
     */
-   public boolean onBlockPhysics(Block block, boolean placed)
+   @EventHandler
+   public void onBlockPhysics(BlockPhysicsEvent event)
    {
-     if ((DisablePhysicsGravel) && (block.getType() == 13)) {
-       return true;
+	   Block block = event.getBlock();
+     if ((properties.DisablePhysicsGravel) && (block.getTypeId() == 13)) {
+       event.setCancelled(true);
+       return;
      }
 
-     if ((DisablePhysicsSand) && (block.getType() == 12)) {
-       return true;
+     if ((properties.DisablePhysicsSand) && (block.getTypeId() == 12)) {
+         event.setCancelled(true);
+         return;
      }
-     if ((AllowPortalEverywhere) && (block.getType() == 90)) {
-         return true;
+     if ((properties.AllowPortalEverywhere) && (block.getTypeId() == 90)) {
+         event.setCancelled(true);
+         return;
        }
-  return false;
+  return;
    }
    
    /**
     * Disable LeafDecay
     */
-   public boolean onLeafDecay(Block block)
+   @EventHandler
+   public void onLeavesDecay(LeavesDecayEvent event)
    {
-	   if (BlockLeafDecay) { 
-		   String[] damages = leavetypes.split(",");
+	   Block block = event.getBlock();
+	   if (properties.BlockLeafDecay) { 
+		   String[] damages = properties.leavetypes.split(",");
 		   List<String> damagess = Arrays.asList(damages);
 		   if (damagess.contains(block.getData())){
-			   return true;
+			   event.setCancelled(true);
+			   return;
 		   }
 	    }
-	   return false;   
+	   return;  
    }
    
    /**
@@ -327,46 +368,56 @@ WorldToolsProperties properties = new WorldToolsProperties();
     */
    public boolean onEat(Player player,ItemStack item)
    {
-	   if (BlockEating && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canEat")) {
-		   return true;
+	   if (properties.BlockEating && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canEat")) {
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
     * Block Dispenser
     * This is also pointless
     */
-   public boolean onDispense(Dispenser dispenser, BaseEntity tobedispensed)
+@EventHandler
+   public void onBlockDispense(BlockDispenseEvent event)
    {
-	   if (BlockDispenser) {
-		   return true; //block it
+	   if (properties.BlockDispenser) {
+		   event.setCancelled(true);
+		   return;
 	   }
-	  return false;  // enable it
+	  return;
    }
+//TODO add unallowed dispenable items
    
    /**
     * Block any player from destrying farmland 
     * by jumping or walking on it.
     */
-   public boolean onBlockUpdate(Block block)
+@EventHandler
+   public void onBlockForm(BlockFormEvent event)
    {
-	   if ((FarmlandDestroy) && (block.getType() == 60)) {
-		   return true;
+	Block block = event.getBlock();
+	   if ((properties.FarmlandDestroy) && (block.getTypeId() == 60)) {
+		   event.setCancelled(true);
+		   return;
 	   }
-	    if (BlockIceMelting && block.getType() == 79){
-	    	return true;
+	    if (properties.BlockIceMelting && block.getTypeId() == 79){
+	    	event.setCancelled(true);
+			return;
 	    }
-	    if (BlockWaterFreezing && block.getType() == 9){
-	    	return true;
+	    if (properties.BlockWaterFreezing && block.getTypeId() == 9){
+	    	event.setCancelled(true);
+			return;
 	    }
-	    if (BlockLavaObsidian && block.getType() == 11){
-	    	return true;
+	    if (properties.BlockLavaObsidian && block.getTypeId() == 11){
+	    	event.setCancelled(true);
+			return;
 	    }
-	    if (BlockSnowMelting && block.getType() == 78){
-	    	return true;
+	    if (properties.BlockSnowMelting && block.getTypeId() == 78){
+	    	event.setCancelled(true);
+			return;
 	    }
-	  return false; 
+	  return;
    }
    
    /**
@@ -377,9 +428,9 @@ WorldToolsProperties properties = new WorldToolsProperties();
    public boolean onEntityDespawn(BaseEntity entity)
    {
 	   if (DisableEntityDespawning){  //TODO: add a list of mobs which shouldnt despawn
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -389,9 +440,9 @@ WorldToolsProperties properties = new WorldToolsProperties();
    public boolean onCowMilk(Player player, Mob cow)
    {
 	   if (BlockCowMilking && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canMilk")) {
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -400,15 +451,15 @@ WorldToolsProperties properties = new WorldToolsProperties();
    public boolean onLightningStrike(BaseEntity entity)
    {
 	   if (DisableLightningStrike) {
-		   return true;
+		   event.setCancelled(true);return;
 	   }
 	   
 	   if ((DisablePigZombificatio) && (entity.isAnimal())) {
 		   entity.destroy(); //destory the entity, should only destory pig but couldnt figure out how :o
-		   return true;
+		   event.setCancelled(true);return;
 	   }
 	   
-	  return false; 
+	  return; 
    }
    
    /**
@@ -421,24 +472,24 @@ WorldToolsProperties properties = new WorldToolsProperties();
 		   if (!player.canUseCommand("/ignoreinv") && !player.canUseCommand("/worldtools")){
 			   if (inventory.getContentsSize() == 27){
 				   player.sendMessage("§cYou cant open this inventory!");
-				   return true;
+				   event.setCancelled(true);return;
 			   }
 			   if (inventory.getContentsSize() == 1){
 				   player.sendMessage("§cYou can't open this inventory!");
-				   return true;
+				   event.setCancelled(true);return;
 			   }
 			   if (inventory.getContentsSize() == 3){
 				   player.sendMessage("§cYou can't open this inventory!");
-				   return true;
+				   event.setCancelled(true);return;
 			   }
 			   if (inventory.getContentsSize() == 54){
 				   player.sendMessage("§cYou can't open this inventory!");
-				   return true;
+				   event.setCancelled(true);return;
 			   }
 		   }
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    
@@ -450,9 +501,9 @@ WorldToolsProperties properties = new WorldToolsProperties();
    public boolean onItemPickUp(Player player, ItemEntity item)
    {
 	   if (DisableItemPickup && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canPickup")) {
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -463,9 +514,9 @@ WorldToolsProperties properties = new WorldToolsProperties();
    public boolean onItemDrop(Player player, ItemEntity item)
    {
 	   if (DisableItemDropping && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canDrop")) {
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -477,14 +528,14 @@ WorldToolsProperties properties = new WorldToolsProperties();
 	   if (DisableWeather) {
 		   if (etc.getServer().getDefaultWorld().isRaining()){
 		   etc.getServer().getDefaultWorld().setRaining(false);}
-		   return true;
+		   event.setCancelled(true);return;
 	   }
 	   if (AlwaysRaining) { 
 		   if (etc.getServer().getDefaultWorld().isRaining()){   //have to clean and fix this afterwards
 			   etc.getServer().getDefaultWorld().setRaining(true);} //TODO:  test this
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -496,9 +547,9 @@ WorldToolsProperties properties = new WorldToolsProperties();
 	   if (DisableThunderWeather)  {
 	       if (etc.getServer().getDefaultWorld().isThundering()){
 	       etc.getServer().getDefaultWorld().setThundering(false);}
-		   return true;
+		   event.setCancelled(true);return;
 	   }
-	  return false; 
+	  return; 
    }
    
    /**
@@ -510,16 +561,16 @@ WorldToolsProperties properties = new WorldToolsProperties();
 	   if (DisableNightTime){
 		   if (etc.getServer().getDefaultWorld().getTime() < 18000){
 		   etc.getServer().getDefaultWorld().setTime(0);
-		   return false;
+		   return;
 		   }
 	   }
 	   if (DisableDayTime){
 		   if (etc.getServer().getDefaultWorld().getTime() > 18000){
 		   etc.getServer().getDefaultWorld().setTime(18000);
-		   return false;
+		   return;
 		   } 
 	   }
-	  return false;
+	  return;
    }
   
      /**
@@ -529,43 +580,43 @@ WorldToolsProperties properties = new WorldToolsProperties();
 public boolean onBlockCreate(Player player,Block block,Block blockClicked,int itemInHand){
 	if (player.canUseCommand("/worldtools") || player.canUseCommand("/canPlaceSponge")){
 		if (block != null){
-		int type = block.getType();
+		int type = block.getTypeId();
 	if (type == 19){
 		if (rlsponge == false){
 			WorldToolsVoids.airout(block,rad);
-			return false;
+			return;
 		}
 	}
 	}
-	return false;
+	return;
 	}
-	return false;
+	return;
 }
 
 public boolean onBlockDestroy(Player player,Block block){
-	if (block.getType() == 19 || player.canUseCommand("/worldtools") || player.canUseCommand("/canBreakSponge")){
+	if (block.getTypeId() == 19 || player.canUseCommand("/worldtools") || player.canUseCommand("/canBreakSponge")){
 		if (rlsponge == false){
 			WorldToolsVoids.replacewater(block,rad);
-		return false;
+		return;
 		}
 	}
-	return false;
+	return;
 }
 
 public boolean onBlockRightClick(Player player,Block block,Item itemInHand){
-	if (block.getType() == 19 || player.canUseCommand("/worldtools") || player.canUseCommand("/useSponge")){
+	if (block.getTypeId() == 19 || player.canUseCommand("/worldtools") || player.canUseCommand("/useSponge")){
 		if (rlsponge){
 			if(WorldToolsVoids.iswater(block, rad)){
 				WorldToolsVoids.airout(block,rad);
-				return false;
+				return;
 			}else{
 				WorldToolsVoids.fillarea(block,rad);
-				return false;
+				return;
 			}
 		}
-		return false;
+		return;
 	}
-	return false;
+	return;
 }
 public PluginLoader.HookResult onTame(Player player,Mob wolf,boolean shouldSucceed){
 	if (DisableWolfTame){
@@ -603,7 +654,7 @@ public boolean onHealthChange(Player player,int oldValue,int newValue){
         if (loc != null) {
           player.teleportTo(loc.Location);
         }
-        return true;
+        event.setCancelled(true);return;
    }
 	
 	if (newValue < 1){
@@ -614,7 +665,7 @@ public boolean onHealthChange(Player player,int oldValue,int newValue){
 		}	
 	  }
 	}
-	return false;
+	return;
 }
 /**
  * @function keep chunks loaded
@@ -630,20 +681,20 @@ public boolean onSignChange(Player player,Sign sign){
 			if (c == null){
 				log.info("Chunk not found!");
 				player.notify("Chunk not found!");
-				return false;
+				return;
 			}
 			if (f.containsKey(c.getX()+","+c.getZ())){
 				player.notify("There is already an loadsign on this chunk!");
-				return false;
+				return;
 			}
 			WorldToolsVoids.savechunk(c.getX()+","+c.getZ(),sign.getX()+","+sign.getY()+","+sign.getZ());
 			player.sendMessage("§2This chunk will be forever loaded from now!");
-			return false;
+			return;
 		}
 		player.notify("You are not allowed to place these signs!");
-		return true;
+		event.setCancelled(true);return;
 	}
-	return false;
+	return;
 }
 
 public void onChunkUnload(Chunk chunk){
@@ -653,7 +704,7 @@ public void onChunkUnload(Chunk chunk){
 		int x =Integer.parseInt(ia[0]);
 		int y =Integer.parseInt(ia[1]);
 		int z =Integer.parseInt(ia[2]);
-		if (chunk.getBlockIdAt(x, y, z) == 63 || chunk.getBlockIdAt(x, y, z) == 68){
+		if (chunk.getBlockTypeIdAt(x, y, z) == 63 || chunk.getBlockTypeIdAt(x, y, z) == 68){
 			Sign s = (Sign)chunk.getWorld().getComplexBlock(x, y, z);
 			if (s.getText(1).equalsIgnoreCase("[LoadChunk]")){
 			chunk.getWorld().loadChunk(chunk.getX(),chunk.getZ());
@@ -663,20 +714,20 @@ public void onChunkUnload(Chunk chunk){
 }
 public boolean onBlockBreak(Player player,Block block){
 	PropertiesFile f = new PropertiesFile("plugins/config/WorldTools/WorldToolsChunks.properties");
-	if (block.getType() == 63 || block.getType() == 68){
+	if (block.getTypeId() == 63 || block.getTypeId() == 68){
 		Sign sign = (Sign)block.getWorld().getComplexBlock(block.getX(), block.getY(), block.getZ());
 		if (sign.getText(1).equalsIgnoreCase("[LoadChunk]")){
 			if (player.canUseCommand("/worldtools")){
 			Chunk chunk = block.getWorld().getChunk(block);
 			f.removeKey(chunk.getX()+","+chunk.getZ());
 			player.sendMessage("§4Sign sucsessfully destroyed!");
-			return false;
+			return;
 		}
 			player.notify("You cant break this sign block!");
-			return true;
+			event.setCancelled(true);return;
 		}
 	}
-	return false;
+	return;
 }
 
 public void onPlayerMove(Player player, Location from, Location to) {
@@ -690,31 +741,31 @@ public void onLogin(Player player) {
       god.remove(player.getName());
   }
 
-public boolean onDamage(PluginLoader.DamageType type, BaseEntity attacker, BaseEntity defender, int amount)
+public boolean onDamage(DamageCause type, BaseEntity attacker, BaseEntity defender, int amount)
 {
 if ((defender.isPlayer()) && 
 	      (god.contains(defender.getPlayer().getName()))) {
 	      Player localplayer = defender.getPlayer();
 
 	      if ((localplayer.canUseCommand("/godmode")) && 
-	        (type.equals(PluginLoader.DamageType.ENTITY)) && 
-	        (type.equals(PluginLoader.DamageType.CACTUS)) && 
-	        (type.equals(PluginLoader.DamageType.FALL)) && 
-	        (type.equals(PluginLoader.DamageType.FIRE)) && 
-	        (type.equals(PluginLoader.DamageType.LAVA)) && 
-	        (type.equals(PluginLoader.DamageType.SUFFOCATION)) && 
-	        (type.equals(PluginLoader.DamageType.FIRE_TICK)) &&
-	        (type.equals(PluginLoader.DamageType.CREEPER_EXPLOSION)) &&
-	        (type.equals(PluginLoader.DamageType.EXPLOSION)) &&
-	        (type.equals(PluginLoader.DamageType.POTION)) &&
-	        (type.equals(PluginLoader.DamageType.STARVATION)) &&
-	        (type.equals(PluginLoader.DamageType.WATER)) &&
-	        (type.equals(PluginLoader.DamageType.LIGHTNING)))
+	        (type.equals(DamageCause.ENTITY)) && 
+	        (type.equals(DamageCause.CACTUS)) && 
+	        (type.equals(DamageCause.FALL)) && 
+	        (type.equals(DamageCause.FIRE)) && 
+	        (type.equals(DamageCause.LAVA)) && 
+	        (type.equals(DamageCause.SUFFOCATION)) && 
+	        (type.equals(DamageCause.FIRE_TICK)) &&
+	        (type.equals(DamageCause.CREEPER_EXPLOSION)) &&
+	        (type.equals(DamageCause.EXPLOSION)) &&
+	        (type.equals(DamageCause.POTION)) &&
+	        (type.equals(DamageCause.STARVATION)) &&
+	        (type.equals(DamageCause.WATER)) &&
+	        (type.equals(DamageCause.LIGHTNING)))
 	      {
-	        return true;
+	        event.setCancelled(true);return;
 	      }
 	    }
-return false;
+return;
 }
 
 public void onLogin(Player player)
@@ -743,7 +794,7 @@ public boolean onHealthChange(Player player, int oldValue, int newValue) {
       player.teleport(spawn);
     }
 
-    return false;
+    return;
   }
 
 }

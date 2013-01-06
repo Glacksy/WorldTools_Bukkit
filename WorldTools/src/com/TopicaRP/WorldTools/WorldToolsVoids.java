@@ -1,6 +1,9 @@
 package com.TopicaRP.WorldTools;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -25,99 +28,24 @@ import org.bukkit.inventory.ItemStack;
 
 public class WorldToolsVoids implements Listener{
 
-	static Player player;
-	private static Location exactSpawn = null;
-	private static PropertiesFile properties;
-	private static boolean ExactSpawn;
+	static Player player;  
+	WorldToolsProperties props = new WorldToolsProperties();
 	
-	/**
-     * Enable/add help commands onDisable
-     */
-    public static void EnableHelp() 
-    {
-   	  etc.getInstance().addCommand("/melt <radius>", "Melt snow/ice in a custom radius");
-   	  etc.getInstance().addCommand("/snow <radius>", "Place snow and ice in a custom radius");
-   	  etc.getInstance().addCommand("/kill <player>", "Kill yourself or another player!");
-   	  etc.getInstance().addCommand("/suicide", "Kill yourself");
-   	  etc.getInstance().addCommand("/heal <player>", "Heal another player!");
-   	  etc.getInstance().addCommand("/heal", "Heal yourself to full health!");
-   	  etc.getInstance().addCommand("/wreplace <from> <to> <radius>", "Replace blocks in a custom radius");
-   	  etc.getInstance().addCommand("/killmobs", "Kill all mobs");
-   	  etc.getInstance().addCommand("/cmob <radius>", "Kill all mobs in a custom radius");
-   	  etc.getInstance().addCommand("/waterfix <radius>", "Fix water in a custom radius");
-   	  etc.getInstance().addCommand("/lavafix <radius>", "Fix lava in a custom radius");
-   	  etc.getInstance().addCommand("/ext <radius>", "Extinguish fire in a custom radius");
-   	  etc.getInstance().addCommand("/drain <radius>", "Drain water and lava in a custom radius");
-   	  etc.getInstance().addCommand("/drainwater <radius>", "Drain water in a custom radius");
-   	  etc.getInstance().addCommand("/drainlava <radius>", "Drain lava in a custom radius");
-      etc.getInstance().addCommand("/save-inv", "Save all inventories!");
-      etc.getInstance().addCommand("/freeze <player>", "Freeze a player.");
-      etc.getInstance().addCommand("/switchworld <world>", "Switch to another world!");
-      etc.getInstance().addCommand("/forcewarp <player> <warp>", "Force a player to a warp location!");
-      etc.getInstance().addCommand("/getip <player>", "Get the ip of a player.");
-      etc.getInstance().addCommand("/feed <player>", "Feed another player!");
-      etc.getInstance().addCommand("/lighter", "Give yourself a lighter!");
-    }
-    
-    /**
-     * Disable help commands onDisable
-     */
-    public static void DisableHelp() 
-    {
-   		etc.getInstance().removeCommand("/melt <radius>");
-   		etc.getInstance().removeCommand("/snow <radius>");
-   		etc.getInstance().removeCommand("/kill <player>");
-   		etc.getInstance().removeCommand("/suicide");
-   		etc.getInstance().removeCommand("/heal <player>");
-   		etc.getInstance().removeCommand("/wreplace <from> <to> <radius>");
-   		etc.getInstance().removeCommand("/killmobs");
-   		etc.getInstance().removeCommand("/waterfix");
-   		etc.getInstance().removeCommand("/lavafix <radius>");
-   		etc.getInstance().removeCommand("/ext <radius>");
-   		etc.getInstance().removeCommand("/drain <radius>");
-   		etc.getInstance().removeCommand("/drainwater <radius>");
-   		etc.getInstance().removeCommand("/drainlava <radius>");
-   		etc.getInstance().removeCommand("/heal");
-   		etc.getInstance().removeCommand("/save-inv");
-   		etc.getInstance().removeCommand("/cmob <radius>");
-   		etc.getInstance().removeCommand("/switchworld <world>");
-   		etc.getInstance().removeCommand("/forcewarp <player> <warp>");
-   		etc.getInstance().removeCommand("/getip <player>");
-   		etc.getInstance().removeCommand("/feed <player>");
-   		etc.getInstance().removeCommand("/freeze <player>");
-   		etc.getInstance().removeCommand("/save-inv");
-   		etc.getInstance().removeCommand("/lighter");
-   		
-    }
-    
-    
-    /**
-	 * Disable ExactSpawn feature
-	 * This load onDisable to disable it
-	 */
-    
-    public static void DisableExactSpawn() {
-		exactSpawn = null;
-	}
-    
-    
     /**
 	 * Load and enable ExactSpawn feature
 	 * This load onEnable
 	 */
-	public static void EnableExactSpawn() {
-		
-		properties = new PropertiesFile(WorldTools.Listener.getDirSet());
-		   ExactSpawn = Boolean.parseBoolean(properties.getProperty("enable-exact-spawn"));
-		PropertiesFile props = new PropertiesFile(WorldTools.Listener.getDirSet());
-		  if ((ExactSpawn) && (props.keyExists("exact-spawn"))) {
-		    String[] data = props.getString("exact-spawn").split(",");
-		    exactSpawn = new Location();
-		    exactSpawn.x = Double.parseDouble(data[0]);
-		    exactSpawn.y = Double.parseDouble(data[1]);
-		    exactSpawn.z = Double.parseDouble(data[2]);
-		    exactSpawn.rotX = Float.parseFloat(data[3]);
-		    exactSpawn.rotY = Float.parseFloat(data[4]);
+	public void EnableExactSpawn() {
+		  if (props.ExactSpawn) {
+			Location exactSpawn;
+		    String[] data = props.ExactSpawnLoc.split(",");
+		    double x = Double.parseDouble(data[0]);
+		    double y = Double.parseDouble(data[1]);
+			double z = Double.parseDouble(data[2]);
+		    float  rotX = Float.parseFloat(data[3]);
+		    float  rotY = Float.parseFloat(data[4]);
+		    World  world = Bukkit.getWorld(data[5]);
+		    exactSpawn = new Location(world, x, y, z, rotX, rotY);
 		  }
 	}
 	
@@ -136,8 +64,8 @@ public class WorldToolsVoids implements Listener{
 		ItemStack item;
 		
 		// Helmet
-		item = a.getInventory().getItemFromSlot(39);
-		id = (item != null) ? item.getItemId() : -1;
+		item = a.getInventory().getHelmet();
+		id = (item != null) ? item.getTypeId() : -1;
 		if (id == 306) { // Iron
 			armour += 2;
 		}
@@ -155,8 +83,8 @@ public class WorldToolsVoids implements Listener{
 		}
 		
 		// Chestplate
-		item = a.getInventory().getItemFromSlot(38);
-		id = (item != null) ? item.getItemId() : -1;
+		item = a.getInventory().getChestplate();
+		id = (item != null) ? item.getTypeId() : -1;
 		if (id == 307) { // Iron
 			armour += 6;
 		}
@@ -174,8 +102,8 @@ public class WorldToolsVoids implements Listener{
 		}
 		
 		// Leggings
-		item = a.getInventory().getItemFromSlot(37);
-		id = (item != null) ? item.getItemId() : -1;
+		item = a.getInventory().getLeggings();
+		id = (item != null) ? item.getTypeId() : -1;
 		if (id == 308) { // Iron
 			armour += 5;
 		}
@@ -193,8 +121,8 @@ public class WorldToolsVoids implements Listener{
 		}
 		
 		// Boots
-		item = a.getInventory().getItemFromSlot(36);
-		id = (item != null) ? item.getItemId() : -1;
+		item = a.getInventory().getBoots();
+		id = (item != null) ? item.getTypeId() : -1;
 		if (id == 309) { // Iron
 			armour += 2;
 		}
@@ -215,7 +143,7 @@ public class WorldToolsVoids implements Listener{
 	}
 	
 	public static int calculateDistance(Player a, Block b) {
-		return (int)Math.round(Math.sqrt(Math.pow(a.getX() - b.getX(), 2.0D) + Math.pow(a.getY() - b.getY(), 2.0D) + Math.pow(a.getZ() - b.getZ(), 2.0D)));
+		return (int)Math.round(Math.sqrt(Math.pow(a.getLocation().getX() - b.getX(), 2.0D) + Math.pow(a.getLocation().getY() - b.getY(), 2.0D) + Math.pow(a.getLocation().getZ() - b.getZ(), 2.0D)));
 	}
 	
 	/**
@@ -268,7 +196,7 @@ public class WorldToolsVoids implements Listener{
 		for (int x = xmin; x <= xmax; x++) {
 			for (int y = ymin; y <= ymax; y++) {
 				for (int z = zmin; z <= zmax; z++) {
-					if (b.getWorld().getBlockAt(x, y, z).getType() == 8 || b.getWorld().getBlockAt(x, y, z).getType() == 9){b.getWorld().setBlockAt(0, x, y, z);}
+					if (b.getWorld().getBlockTypeIdAt(x, y, z) == 8 || b.getWorld().getBlockTypeIdAt(x, y, z) == 9){b.getWorld().getBlockAt(x, y, z).setTypeId(0);}
 				}
 			}
 		}
@@ -288,7 +216,7 @@ public class WorldToolsVoids implements Listener{
 		for (int x = xmin; x <= xmax; x++) {
 			for (int y = ymin; y <= ymax; y++) {
 				for (int z = zmin; z <= zmax; z++) {
-					if (b.getWorld().getBlockAt(x, y, z).getType() == 0){b.getWorld().setBlockAt(9, x, y, z);}
+					if (b.getWorld().getBlockTypeIdAt(x, y, z) == 0){b.getWorld().getBlockAt(x, y, z).setTypeId(9);}
 				}
 			}
 		}
@@ -309,7 +237,7 @@ public class WorldToolsVoids implements Listener{
 		for (int x = xmin; x <= xmax; x++) {
 			for (int y = ymin; y <= ymax; y++) {
 				for (int z = zmin; z <= zmax; z++) {
-					if (b.getWorld().getBlockAt(x, y, z).getType() == 8 || b.getWorld().getBlockAt(x, y, z).getType() == 9){b.getWorld().setBlockAt(8, x, y, z);}
+					if (b.getWorld().getBlockTypeIdAt(x, y, z) == 8 || b.getWorld().getBlockTypeIdAt(x, y, z) == 9){b.getWorld().getBlockAt(x, y, z).setTypeId(9);}
 				}
 			}
 		}
@@ -330,7 +258,7 @@ public class WorldToolsVoids implements Listener{
 		for (int x = xmin; x <= xmax; x++) {
 			for (int y = ymin; y <= ymax; y++) {
 				for (int z = zmin; z <= zmax; z++) {
-					if (b.getWorld().getBlockAt(x, y, z).getType() == 19){return true;}
+					if (b.getWorld().getBlockTypeIdAt(x, y, z) == 19){return true;}
 				}
 			}
 		}
@@ -353,7 +281,7 @@ public class WorldToolsVoids implements Listener{
 		for (int x = xmin; x <= xmax; x++) {
 			for (int y = ymin; y <= ymax; y++) {
 				for (int z = zmin; z <= zmax; z++) {
-					if (b.getWorld().getBlockAt(x, y, z).getType() == 19){return true;}
+					if (b.getWorld().getBlockTypeIdAt(x, y, z) == 19){return true;}
 				}
 			}
 		}
@@ -375,7 +303,7 @@ public class WorldToolsVoids implements Listener{
 			for (int x = xmin; x <= xmax; x++) {
 				for (int y = ymin; y <= ymax; y++) {
 					for (int z = zmin; z <= zmax; z++) {
-						if (b.getWorld().getBlockAt(x, y, z).getType() == 8 || b.getWorld().getBlockAt(x, y, z).getType() == 9){return true;}
+						if (b.getWorld().getBlockTypeIdAt(x, y, z) == 8 || b.getWorld().getBlockTypeIdAt(x, y, z) == 9){return true;}
 					}
 				}
 			}
@@ -393,17 +321,17 @@ public class WorldToolsVoids implements Listener{
 		 * @param radius
 		 */
 	     public static void replace(Player player, int from, int to, int radius){
-	         int xmin = (int)player.getX()-radius;
-	         int xmax = (int)player.getX()+radius;
-	         int ymin = (int)player.getY()-radius;
-	         int ymax = (int)player.getY()+radius;
-	         int zmin = (int)player.getZ()-radius;
-	         int zmax = (int)player.getZ()+radius;
+	         int xmin = (int)player.getLocation().getX()-radius;
+	         int xmax = (int)player.getLocation().getX()+radius;
+	         int ymin = (int)player.getLocation().getY()-radius;
+	         int ymax = (int)player.getLocation().getY()+radius;
+	         int zmin = (int)player.getLocation().getZ()-radius;
+	         int zmax = (int)player.getLocation().getZ()+radius;
 	        
 	         for (int x = xmin; x <= xmax; x++) {
 	                 for (int y = ymin; y <= ymax; y++) {
 	                         for (int z = zmin; z <= zmax; z++) {    
-	                                 if (player.getWorld().getBlockAt(x, y, z).getType() == from){player.getWorld().setBlockAt(to, x, y, z);}
+	                                 if (player.getWorld().getBlockTypeIdAt(x, y, z) == from){player.getWorld().getBlockAt(x, y, z).setTypeId(to);}
 	                         }
 	                       }
 	                     }
@@ -421,15 +349,15 @@ public class WorldToolsVoids implements Listener{
 	       for (int x = -r; x <= r; x++)
 	         for (int z = -r; z <= r; z++)
 	           for (int y = -r; y <= r; y++) {
-	             Block check = world.getBlockAt((int)player.getX() + x, (int)player.getY() + y, (int)player.getZ() + z);
-	             for (Mob m : world.getMobList()) {
-	               if (((int)m.getX() == check.getX()) && ((int)m.getY() == check.getY()) && ((int)m.getZ() == check.getZ())) {
-	                 m.setHealth(0);
+	             Block check = world.getBlockAt((int)player.getLocation().getX() + x, (int)player.getLocation().getY() + y, (int)player.getLocation().getZ() + z);
+	             for (Entity m : world.getEntities()) {
+	               if (((int)m.getLocation().getX() == check.getX()) && ((int)m.getLocation().getY() == check.getY()) && ((int)m.getLocation().getZ() == check.getZ())) {
+	                 m.remove();
 	               }
 	             }
-	             for (Mob m : world.getMobList())
-	               if (((int)m.getX() == check.getX()) && ((int)m.getY() == check.getY()) && ((int)m.getZ() == check.getZ()))
-	                 m.setHealth(0);
+	             for (Entity m : world.getEntities())
+	               if (((int)m.getLocation().getX() == check.getX()) && ((int)m.getLocation().getY() == check.getY()) && ((int)m.getLocation().getZ() == check.getZ()))
+	                 m.remove();
 	          }
 	        }
 	     /**

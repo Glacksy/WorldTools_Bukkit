@@ -24,7 +24,9 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -35,16 +37,17 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WorldTools extends JavaPlugin {
 
 	  static WorldToolsListener listener = new WorldToolsListener();
+	  static WorldToolsProperties properties = new WorldToolsProperties();
 	  static PlayerTools playertools = new PlayerTools();
 	  
 	  private static Logger log = Logger.getLogger("Minecraft");
 	  private static Object logger;
 	  
 	  static String pluginName = "WorldTools";
-	  static String version = "2.2";
+	  static String version = "1.0";
 	  static String Author = "Glacksy & Spenk";
 	  static String Updatr = "Updatr";
-	  public static String TVer = "2.2";
+	  public static String TVer = "1.0";
 	  
 	  private final static String Dir = "plugins/config/WorldTools/"; 
 	  private final static String Set = "WorldTools.properties";
@@ -53,79 +56,25 @@ public class WorldTools extends JavaPlugin {
 	  private static PropertiesFile Settings;
 	  
 	  public static int explosionRad = 4;
-	  Server server = etc.getServer();
+	  Server server = Bukkit.getServer();
 
-
-public void enable()
+/**
+ * this will load our hooks it will check if you have the latest build and it will create the configurations
+ */
+public void onEnable()
 {
+	getServer().getPluginManager().registerEvents(listener, this);
 	log.info(pluginName + " " + version + " by " + Author + " Enabled");
 	if(Listener.isLatest()){
 	log.info("[WorldTools] - There is an update available!");}
 	
-	listener.createfile();
+	Listener.LoadAll();
 	log.info("[WorldTools] - Files Created & Loaded!");
 }
 
-public void disable()
+public void onDisable()
 {
 	log.info(pluginName + " " + version + " by " + Author + " Disabled");
-	Listener.UnLoadAll();
-}
-
-public void initialize()
-{
-  PluginLoader loader = etc.getLoader();
-  loader.addListener(PluginLoader.Hook.COMMAND, playertools, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.PLAYER_CONNECT, playertools, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.PLAYER_DISCONNECT, playertools, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.DAMAGE, playertools, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.PLAYER_MOVE, playertools, this, PluginListener.Priority.MEDIUM);
-  
-  loader.addListener(PluginLoader.Hook.COMMAND, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.EXPLODE, listener, this, PluginListener.Priority.CRITICAL);
-  loader.addListener(PluginLoader.Hook.ITEM_USE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.ITEM_PICK_UP, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.ITEM_DROP, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.HEALTH_CHANGE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.LOGIN, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.DISCONNECT, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_RIGHTCLICKED, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_PLACE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_DESTROYED, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_CREATED, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_PHYSICS, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_UPDATE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.DAMAGE, listener, this, PluginListener.Priority.HIGH);
-  loader.addListener(PluginLoader.Hook.IGNITE, listener, this, PluginListener.Priority.HIGH);
-  loader.addListener(PluginLoader.Hook.FLOW, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.PORTAL_CREATE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.PORTAL_DESTROY, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.LEAF_DECAY, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.COW_MILK, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.EAT, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.DISPENSE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.ENTITY_DESPAWN, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.LIGHTNING_STRIKE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.WEATHER_CHANGE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.THUNDER_CHANGE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.TIME_CHANGE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.OPEN_INVENTORY, listener, this, PluginListener.Priority.CRITICAL);
-  loader.addListener(PluginLoader.Hook.PLAYER_MOVE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.TAME, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.CHUNK_UNLOAD, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.SIGN_CHANGE, listener, this, PluginListener.Priority.MEDIUM);
-  loader.addListener(PluginLoader.Hook.BLOCK_BROKEN, listener, this, PluginListener.Priority.MEDIUM);
-  
-  Plugin loaded = etc.getLoader().getPlugin("Updatr");
-  if (loaded != null) {
-	  log.info(pluginName + " " + version + " by " + Author + " initialized");
-  	  log.info(Updatr + "Succesfully loaded");
-    }
-    else {
-      log.info(pluginName + " " + version + " by " + Author + " initialized");
-      etc.getLoader().disablePlugin("Updatr");
-    }
- 
 }
 
 public static class Listener{
@@ -163,13 +112,7 @@ public static class Listener{
     }
     public static void LoadAll() {
     	updatr.createUpdatrFile();
-    	WorldToolsVoids.EnableExactSpawn();
-    	listener.createfile();
-    	WorldToolsVoids.EnableHelp();
-    }
-    public static void UnLoadAll() {
-    	WorldToolsVoids.EnableHelp();
-    	WorldToolsVoids.DisableExactSpawn();
+    	properties.createfile();
     }
     
     

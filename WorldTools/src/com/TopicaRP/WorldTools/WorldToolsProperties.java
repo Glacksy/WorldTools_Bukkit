@@ -7,79 +7,82 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class WorldToolsProperties {
-	private Logger log = Logger.getLogger("Minecraft");
+	public Logger log = Logger.getLogger("Minecraft");
 	  /**
 		 * Disable and Enable different features in properties file
 		 * This part is used to "wire" prop file and features
 		 */
-		  private PropertiesFile properties;
-		  private boolean BlockFireSpread;
-		  private boolean BlockLavaFire;
-		  private boolean BlockLighter;
-		  private boolean BlockFireBlockDestory;
-		  private boolean BlockLightningFire;
-		  private boolean BlockCreeperExplosion;
-		  private boolean BlockGhastExplosion;
-		  private boolean BlockPortalCreating;
-		  private boolean BlockPortalDestroying;
-		  private boolean BlockTntExplosion;
-		  private boolean DisableFallDamage;
-		  private boolean DisableLavaDamage;
-		  private boolean DisableFireDamage;
-		  private boolean DisableFireTickDamage;
-		  private boolean DisableCactusDamage;
-		  private boolean DisableEntityDamage;
-		  private boolean DisableCreeperDamage;
-		  private boolean DisableLightningDamage;
-		  private boolean DisableStarvationDamage;
-		  private boolean DisableSuffocationDamage;
-		  private boolean DisableWaterDamage;
-		  private boolean DisablePotionDamage;
-		  private boolean DisableWaterFlow;
-		  private boolean DisableLavaFlow;
-		  private boolean DisablePhysicsGravel;
-		  private boolean DisablePhysicsSand;
-		  private boolean BlockLeafDecay;
-		  private boolean BlockCowMilking;
-		  private boolean BlockEating;
-		  private boolean BlockDispenser;
-		  private boolean FarmlandDestroy;
-		  private boolean DisableEntityDespawning;
-		  private boolean DisableLightningStrike;
-		  private boolean DisableInventories;
-		  private boolean DisableItemPickup;
-		  private boolean DisableItemDropping;
-		  private boolean DisableWeather;
-		  private boolean DisableDayTime;
-		  private boolean DisableThunderWeather;
-		  private boolean DisableNightTime;
-		  private boolean DisableWolfTame;
-          private boolean DisableEndermanBlockPickup;
-		  private boolean AlwaysRaining;
-		  private boolean Instandtame;
-		  private boolean ClassicWater;
-		  private boolean TpHomeOnDeath;
-		  private boolean DisablePigZombificatio;
-		  private boolean AntiWolfDumbness;
-		  private boolean AntiOcelotDumbness;
-		  private boolean BlockSnowMelting;
-		  private boolean AllowPortalEverywhere;
+		  public PropertiesFile properties;
+		  public boolean BlockFireSpread;
+		  public boolean BlockLavaFire;
+		  public boolean BlockLighter;
+		  public boolean BlockFireBlockDestory;
+		  public boolean BlockLightningFire;
+		  public boolean BlockCreeperExplosion;
+		  public boolean BlockGhastExplosion;
+		  public boolean BlockPortalCreating;
+		  public boolean BlockPortalDestroying;
+		  public boolean BlockTntExplosion;
+		  public boolean DisableFallDamage;
+		  public boolean DisableLavaDamage;
+		  public boolean DisableFireDamage;
+		  public boolean DisableFireTickDamage;
+		  public boolean DisableCactusDamage;
+		  public boolean DisableEntityDamage;
+		  public boolean DisableCreeperDamage;
+		  public boolean DisableLightningDamage;
+		  public boolean DisableStarvationDamage;
+		  public boolean DisableSuffocationDamage;
+		  public boolean DisableWaterDamage;
+		  public boolean DisablePotionDamage;
+		  public boolean DisableWaterFlow;
+		  public boolean DisableLavaFlow;
+		  public boolean DisablePhysicsGravel;
+		  public boolean DisablePhysicsSand;
+		  public boolean BlockLeafDecay;
+		  public boolean BlockCowMilking;
+		  public boolean BlockEating;
+		  public boolean BlockDispenser;
+		  public boolean FarmlandDestroy;
+		  public boolean DisableEntityDespawning;
+		  public boolean DisableLightningStrike;
+		  public boolean DisableInventories;
+		  public boolean DisableItemPickup;
+		  public boolean DisableItemDropping;
+		  public boolean DisableWeather;
+		  public boolean DisableDayTime;
+		  public boolean DisableThunderWeather;
+		  public boolean DisableNightTime;
+		  public boolean DisableWolfTame;
+          public boolean DisableEndermanBlockPickup;
+		  public boolean AlwaysRaining;
+		  public boolean Instandtame;
+		  public boolean ClassicWater;
+		  public boolean TpHomeOnDeath;
+		  public boolean DisablePigZombificatio;
+		  public boolean AntiWolfDumbness;
+		  public boolean AntiOcelotDumbness;
+		  public boolean BlockSnowMelting;
+		  public boolean AllowPortalEverywhere;
+		  
+		  public boolean ExactSpawn;
+		  public String ExactSpawnLoc;
 		  
 		  public int rad;
 		  public boolean rlsponge;
-		  private String leavetypes;
+		  public String leavetypes;
 		  
-		  private boolean teleporttootherworld;
-		  private String world;
-		  private int level;
-		  private boolean kickondeath;
-		  private String reason;
-		  private boolean BlockIceMelting;
-		  private boolean BlockWaterFreezing;
-		  private boolean BlockLavaObsidian;
-		 // private Set<Integer> DisallowFireSpreadBlocks;   //Throwing errors, have to recode it
-		 // private Set<Integer> DisallowLavaSpreadBlocks;   //Throwing errors, have to recode it
-		 // private Set<Integer> DisallowWaterSpreadBlocks;  //Throwing errors, this disable water flow somehow
+		  public boolean teleporttootherworld;
+		  public String world;
+		  public int level;
+		  public boolean kickondeath;
+		  public String reason;
+		  public boolean BlockIceMelting;
+		  public boolean BlockWaterFreezing;
+		  public boolean BlockLavaObsidian;
+		 // public Set<Integer> DisallowFireSpreadBlocks;   //Throwing errors, have to recode it
+		 // public Set<Integer> DisallowLavaSpreadBlocks;   //Throwing errors, have to recode it
+		 // public Set<Integer> DisallowWaterSpreadBlocks;  //Throwing errors, this disable water flow somehow
 		  
 	  
 	  /** checking if the file exists
@@ -112,7 +115,7 @@ public class WorldToolsProperties {
  * @author Glacksy
  */
 
-private void makeSettingsFile(String file) {
+public void makeSettingsFile(String file) {
 	try {
 		File f = new File(file);
 		BufferedWriter out = new BufferedWriter(new FileWriter(f));
@@ -277,6 +280,9 @@ private void makeSettingsFile(String file) {
 		out.write("#ExactSpawn"); out.newLine();
 		out.write("enable-exact-spawn=true");
         out.write(" "); out.newLine();
+        out.write("#ExactSpawn x,y,z,rotation,pitch,World");
+        out.write("exact-spawn-location=0,0,0,0,0,world");
+        out.write(" ");
 		out.write("#Classic water simulation"); out.newLine();
 		out.write("classic-water=false");
         out.write(" "); out.newLine();
@@ -391,7 +397,9 @@ public void loadprops(String file){
       BlockIceMelting = Boolean.parseBoolean(properties.getProperty("block-Ice-physics"));
       BlockWaterFreezing = Boolean.parseBoolean(properties.getProperty("block-Water-physics"));
       BlockLavaObsidian = Boolean.parseBoolean(properties.getProperty("block-Lava-physics"));
-  
+      
+      ExactSpawn = Boolean.parseBoolean(properties.getProperty("enable-exact-spawn"));
+      ExactSpawnLoc = properties.getProperty("enable-exact-location");
 
  // ExactSpawn = Boolean.parseBoolean(properties.getProperty("disable-exact-spawn"));
   

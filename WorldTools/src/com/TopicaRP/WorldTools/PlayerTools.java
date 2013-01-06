@@ -33,7 +33,7 @@ import org.bukkit.entity.Player;
  * and admins
  *
  */
-public class PlayerTools extends PluginListener{
+public class PlayerTools{
 	
 	ArrayList<String> god = new ArrayList<String>();
 	ArrayList<String> frozen = new ArrayList<String>();
