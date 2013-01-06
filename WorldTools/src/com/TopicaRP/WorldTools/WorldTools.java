@@ -24,9 +24,12 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import net.milkbowl.vault.permission.Permission;
+
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Server;
+import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -57,12 +60,14 @@ public class WorldTools extends JavaPlugin {
 	  
 	  public static int explosionRad = 4;
 	  Server server = Bukkit.getServer();
+	  public Permission perms = null;
 
 /**
  * this will load our hooks it will check if you have the latest build and it will create the configurations
  */
 public void onEnable()
 {
+	if (this.isPermissionsEnabled()){
 	getServer().getPluginManager().registerEvents(listener, this);
 	log.info(pluginName + " " + version + " by " + Author + " Enabled");
 	if(Listener.isLatest()){
@@ -70,6 +75,23 @@ public void onEnable()
 	
 	Listener.LoadAll();
 	log.info("[WorldTools] - Files Created & Loaded!");
+	}else{
+		log.info("[WorldTools] Error no vault found! Disabeling WorldTools!");
+		Bukkit.getServer().getPluginManager().disablePlugin(this);
+		return;
+	}
+}
+
+public boolean isPermissionsEnabled() {
+	if (Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
+		return false;
+	}
+	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
+	if (rsp == null) {
+		return false;
+	}
+	perms = rsp.getProvider();
+	return perms != null;
 }
 
 public void onDisable()

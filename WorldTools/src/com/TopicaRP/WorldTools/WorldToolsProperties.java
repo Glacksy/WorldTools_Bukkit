@@ -20,8 +20,10 @@ public class WorldToolsProperties {
 		  public boolean BlockLightningFire;
 		  public boolean BlockCreeperExplosion;
 		  public boolean BlockGhastExplosion;
-		  public boolean BlockPortalCreating;
-		  public boolean BlockPortalDestroying;
+		  public boolean BlockPortalNetherCreating;
+		  public boolean BlockPortalEnderCreating;
+		  public boolean BlockPortalNetherDestroying;
+		  public boolean BlockPortalEnderDestroying;
 		  public boolean BlockTntExplosion;
 		  public boolean DisableFallDamage;
 		  public boolean DisableLavaDamage;
@@ -63,7 +65,7 @@ public class WorldToolsProperties {
 		  public boolean AntiWolfDumbness;
 		  public boolean AntiOcelotDumbness;
 		  public boolean BlockSnowMelting;
-		  public boolean AllowPortalEverywhere;
+		  //public boolean AllowPortalEverywhere;
 		  
 		  public boolean ExactSpawn;
 		  public String ExactSpawnLoc;
@@ -147,10 +149,16 @@ public void makeSettingsFile(String file) {
 		out.write("block-ghast-explosion=false"); out.newLine();
 		out.write(" "); out.newLine();
 		out.write("#Block nether portals from being activated"); out.newLine();
-		out.write("block-portal-creating=false"); out.newLine();
+		out.write("block-nether-portal-creating=false"); out.newLine();
+		out.write(" "); out.newLine();
+		out.write("#Block nether portals from being activated"); out.newLine();
+		out.write("block-ender-portal-creating=false"); out.newLine();
 		out.write(" "); out.newLine();
 		out.write("#Block nether portals from being destroyed"); out.newLine();
-		out.write("block-portal-destroying=false"); out.newLine();
+		out.write("block-nether-portal-destroying=false"); out.newLine();
+		out.write(" "); out.newLine();
+		out.write("#Block ender portals from being destroyed"); out.newLine();
+		out.write("block-ender-portal-destroying=false"); out.newLine();
 		out.write(" "); out.newLine();
 		out.write("#Block TnT from dealing damage to player and world"); out.newLine();
 		out.write("block-tnt-explosion=false"); out.newLine();
@@ -338,8 +346,10 @@ public void loadprops(String file){
 	  BlockLightningFire = Boolean.parseBoolean(properties.getProperty("block-lightning-fire"));
 	  BlockCreeperExplosion = Boolean.parseBoolean(properties.getProperty("block-creeper-explosion"));
 	  BlockGhastExplosion = Boolean.parseBoolean(properties.getProperty("block-ghast-explosion"));
-	  BlockPortalCreating = Boolean.parseBoolean(properties.getProperty("block-portal-creating"));
-	  BlockPortalDestroying = Boolean.parseBoolean(properties.getProperty("block-portal-destroying"));
+	  BlockPortalNetherCreating = Boolean.parseBoolean(properties.getProperty("block-nether-portal-creating"));
+	  BlockPortalEnderCreating = Boolean.parseBoolean(properties.getProperty("block-ender-portal-creating"));
+	  BlockPortalEnderDestroying = Boolean.parseBoolean(properties.getProperty("block-ender-portal-destroying"));
+	  BlockPortalNetherDestroying = Boolean.parseBoolean(properties.getProperty("block-nether-portal-destroying"));
 	  BlockTntExplosion = Boolean.parseBoolean(properties.getProperty("block-tnt-explosion"));
 	  
 	  // Disable different damage types
@@ -364,7 +374,7 @@ public void loadprops(String file){
  //  DisallowWaterSpreadBlocks = toBlockIDSet(properties.getProperty("disallowed-water-spread-blocks"));
   
   // Other Random Stuff
-	  AllowPortalEverywhere = Boolean.parseBoolean(properties.getProperty("allow-portal-everywhere"));
+	  //AllowPortalEverywhere = Boolean.parseBoolean(properties.getProperty("allow-portal-everywhere"));
 	  BlockSnowMelting = Boolean.parseBoolean(properties.getProperty("block-snow-physics"));
 	  AntiOcelotDumbness = Boolean.parseBoolean(properties.getProperty("anti-ocelot-dumbness"));
 	  AntiWolfDumbness = Boolean.parseBoolean(properties.getProperty("anti-wolf-dumbness"));

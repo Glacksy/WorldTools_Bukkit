@@ -3,7 +3,7 @@ package com.TopicaRP.WorldTools;
  * WorldTools
  * Copyright (C) 2012
  *
- * This program is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it andor modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -14,13 +14,15 @@ package com.TopicaRP.WorldTools;
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http:www.gnu.orglicenses>.
  */
 
 import java.io.File;
 import java.util.ArrayList;
 
 import org.bukkit.Location;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
@@ -40,20 +42,22 @@ public class PlayerTools{
 	
 	private static Location exactSpawn = null;
 	
-	public boolean onCommand(Player Player, String[] split) {
-			   if (split[0].equalsIgnoreCase("/drain")){
-				   if ((Player.canUseCommand("/worldtools"))||Player.canUseCommand("/drain")){
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (sender instanceof Player){
+			Player player = (Player) sender;
+			   if (label.equalsIgnoreCase("drain")){
+				   if ((Player.canUseCommand("worldtools"))||Player.canUseCommand("drain")){
 			       int dist = 0;
 			       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable) {
 			         } if (dist == 0) {
 			         Player.sendMessage("§9[§6-§8-§6-§8-§6-§9Drain Help§6-§8-§6-§8-§6-§9]");
-			         Player.sendMessage("§a/drain <radius> - Drain water/lava");
-			         Player.sendMessage("§a/drainwater <radius> - Drain water");
-			         Player.sendMessage("§a/drainlava <radius>  - Drain lava");
-			         Player.sendMessage("§a/ext <radius> - Remove fire"); return true;
+			         Player.sendMessage("§adrain <radius> - Drain waterlava");
+			         Player.sendMessage("§adrainwater <radius> - Drain water");
+			         Player.sendMessage("§adrainlava <radius>  - Drain lava");
+			         Player.sendMessage("§aext <radius> - Remove fire"); return true;
 			       }
 			         int radius = 0;
-			       try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /drain <radius>");return true;}
+			       try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is drain <radius>");return true;}
 			       int xmin = (int)Player.getX()-radius;
 			         int xmax = (int)Player.getX()+radius;
 			         int ymin = (int)Player.getY()-radius;
@@ -78,13 +82,13 @@ public class PlayerTools{
 	}
 
 
-		     if (split[0].equalsIgnoreCase("/drainlava")){
-		    	 if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/drainlava"))){
+		     if (label.equalsIgnoreCase("drainlava")){
+		    	 if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("drainlava"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable1) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /drainlava <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: drainlava <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /drainlava <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is drainlava <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -106,13 +110,13 @@ public class PlayerTools{
 		     Player.notify("You cant use this command");return true;
 	}
 
-		     if (split[0].equalsIgnoreCase("/drainwater")) {
-		    	 if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/drainwater"))){
+		     if (label.equalsIgnoreCase("drainwater")) {
+		    	 if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("drainwater"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable2) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /drainwater <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: drainwater <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /drainwater <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is drainwater <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -134,13 +138,13 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		     }
 
-		     if (split[0].equalsIgnoreCase("/ext")) {
-		    	 if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/ext"))){
+		     if (label.equalsIgnoreCase("ext")) {
+		    	 if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("ext"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable3) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /ext <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: ext <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /ext <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is ext <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -161,13 +165,13 @@ public class PlayerTools{
 		     Player.notify("You cant use this command");return true;
 	}
 
-		     if (split[0].equalsIgnoreCase("/melt")) {
-		    	 if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/melt"))){
+		     if (label.equalsIgnoreCase("melt")) {
+		    	 if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("melt"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable4) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /melt <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: melt <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /melt <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is melt <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -189,13 +193,13 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		     }
 
-		     if (split[0].equalsIgnoreCase("/snow")) {
-		    	 if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/snow"))){
+		     if (label.equalsIgnoreCase("snow")) {
+		    	 if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("snow"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable5) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /snow <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: snow <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /snow <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is snow <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -218,13 +222,13 @@ public class PlayerTools{
 		     Player.notify("You cant use this command");return true;
 	}
 
-		     if (split[0].equalsIgnoreCase("/waterfix")) {
-		    	 if ((Player.canUseCommand("/worldtools")) && (Player.canUseCommand("/waterfix"))){
+		     if (label.equalsIgnoreCase("waterfix")) {
+		    	 if ((Player.canUseCommand("worldtools")) && (Player.canUseCommand("waterfix"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable6) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /waterfix <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: waterfix <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /waterfix <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is waterfix <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -247,13 +251,13 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		     }
 
-		     if (split[0].equalsIgnoreCase("/lavafix")) {
-		    	 if ((Player.canUseCommand("/worldtool")) || (Player.canUseCommand("/lavafix"))){
+		     if (label.equalsIgnoreCase("lavafix")) {
+		    	 if ((Player.canUseCommand("worldtool")) || (Player.canUseCommand("lavafix"))){
 		       int dist = 0;
 		       if (split.length == 2) try { dist = Integer.parseInt(split[1]); } catch (Throwable localThrowable7) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /lavafix <radius>"); return true; }
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: lavafix <radius>"); return true; }
 		         int radius = 0;
-		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is /lavafix <radius>");return true;}
+		         try {radius = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is lavafix <radius>");return true;}
 		         int xmin = (int)Player.getX()-radius;
 		         int xmax = (int)Player.getX()+radius;
 		         int ymin = (int)Player.getY()-radius;
@@ -276,11 +280,11 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		     }
 		     
-		     if (split[0].equalsIgnoreCase("/lighter")){ 
-		    	 if(Player.canUseCommand("/lighter") || (Player.canUseCommand("/worldtools"))) {
+		     if (label.equalsIgnoreCase("lighter")){ 
+		    	 if(Player.canUseCommand("lighter") || (Player.canUseCommand("worldtools"))) {
 		       int dist = 0;
-		       if (split.length == 0) try { dist = Integer.parseInt(split[0]); } catch (Throwable localThrowable8) {
-		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: /lighter"); return true;
+		       if (split.length == 0) try { dist = Integer.parseInt(label); } catch (Throwable localThrowable8) {
+		         } if (dist == 0) { Player.sendMessage("§cWrong syntax! Usage: lighter"); return true;
 		       }
 		       Player.giveItem(260, 1);
 		       Player.sendMessage("§a No smoke without §6fire!"); 
@@ -289,26 +293,26 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		     }
 		     
-		     if (split[0].equalsIgnoreCase("/cmob")){
-		    	 if(Player.canUseCommand("/cmob") || (Player.canUseCommand("/worldtools"))) {
+		     if (label.equalsIgnoreCase("cmob")){
+		    	 if(Player.canUseCommand("cmob") || (Player.canUseCommand("worldtools"))) {
 		         try {
 		           int r = Integer.valueOf(split[1]).intValue();
 		           WorldToolsVoids.cMob(r);
 		           Player.sendMessage("§aCleared mobs");
 		           return true;
 		         } catch (Exception e) {
-		           Player.sendMessage("§cWrong syntax! Usage: /cmob <radius>");
+		           Player.sendMessage("§cWrong syntax! Usage: cmob <radius>");
 		           return true;
 		         }
 		       }
 		    	 Player.notify("You cant use this command");return true;
 		     }
 		     
-		     /**
+		     **
 		      * killmobs
-		      */
-		     if (split[0].equalsIgnoreCase("/killmobs")){
-		    		 if (Player.canUseCommand("/killmobs") || (Player.canUseCommand("/worldtools"))) {
+		      *
+		     if (label.equalsIgnoreCase("killmobs")){
+		    		 if (Player.canUseCommand("killmobs") || (Player.canUseCommand("worldtools"))) {
 		         int mobcount = Player.getWorld().getMobList().size();
 		         for (int i = 0; i < mobcount; i++) {
 		           ((Mob)Player.getWorld().getMobList().get(i)).setHealth(0);
@@ -319,23 +323,23 @@ public class PlayerTools{
 		    		 Player.notify("You cant use this command");return true;
 		     }
 		     
-		     /**
+		     **
 		      * replace feature
 		      * 
-		      */ 
-		     if (split[0].equalsIgnoreCase("/wreplace")){
-		    	 if ((Player.canUseCommand("/wreplace") || (Player.canUseCommand("/worldtools")))){
+		      * 
+		     if (label.equalsIgnoreCase("wreplace")){
+		    	 if ((Player.canUseCommand("wreplace") || (Player.canUseCommand("worldtools")))){
 		         if (split.length <4 || split.length >4){
-		                 Player.notify("The correct usage is '/wreplace fromid toid radius'");
+		                 Player.notify("The correct usage is 'wreplace fromid toid radius'");
 		                 return true;
 		         } 
 		         Integer.parseInt(split[1]); Integer.parseInt(split[2]);Integer.parseInt(split[3]);
 		     int fromid = 0;
-		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is '/wreplace fromid toid radius");return true;}
+		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is 'wreplace fromid toid radius");return true;}
 		     int toid = 0;
-		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is '/wreplace fromid toid radius");return true;}
+		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is 'wreplace fromid toid radius");return true;}
 		     int radius = 0;
-		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is '/wreplace fromid toid radius");return true;}
+		     try{fromid = Integer.parseInt(split[1]);}catch(NumberFormatException nfe){Player.notify("The correct usage is 'wreplace fromid toid radius");return true;}
 		         WorldToolsVoids.replace(Player,fromid,toid,radius);
 		         
 		         Player.sendMessage("§aBlocks Replaced.");
@@ -344,15 +348,15 @@ public class PlayerTools{
 		    	 Player.notify("You cant use this command");return true;
 		 }
 		     
-		     if ((split[0].equalsIgnoreCase("/worldtools")) && (Player.canUseCommand("/worldtools"))) {
-		    	 if (split.length >1 || split.length <1){Player.notify("The correct usage is '/worldtools'");return true;}
+		     if ((label.equalsIgnoreCase("worldtools")) && (Player.canUseCommand("worldtools"))) {
+		    	 if (split.length >1 || split.length <1){Player.notify("The correct usage is 'worldtools'");return true;}
 		           Player.sendMessage("§6 WorldTools " + WorldTools.version + " by Glacksy §8&§6 Spenk");
 		           return true;
 		         }
 		     
-		     if ((split[0].equalsIgnoreCase("/suicide"))){
-		    	 if ((Player.canUseCommand("/suicide") || (Player.canUseCommand("/worldtool")))){
-		    		 if (split.length >1 || split.length <1){Player.notify("The correct usage is '/suicide'");return true;}
+		     if ((label.equalsIgnoreCase("suicide"))){
+		    	 if ((Player.canUseCommand("suicide") || (Player.canUseCommand("worldtool")))){
+		    		 if (split.length >1 || split.length <1){Player.notify("The correct usage is 'suicide'");return true;}
 		           Player.setHealth(0);
 		           Player.sendMessage("§cYou committed suicide");
 		           return true;
@@ -364,10 +368,10 @@ public class PlayerTools{
 		      * kill code
 		      * @author spenk
 		      */
-		           if ((split[0].equalsIgnoreCase("/kill"))){    
-		        	   if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/kill"))){
+		           if ((label.equalsIgnoreCase("kill"))){    
+		        	   if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("kill"))){
 		        		   if (split.length <2 || split.length >2){
-		        		   Player.notify("The correct usage is /kill <player>");
+		        		   Player.notify("The correct usage is kill <player>");
 		        		   return true;
 		        	   }else{
 		        		   Player player = etc.getServer().matchPlayer(split[1]);
@@ -386,10 +390,10 @@ public class PlayerTools{
 		        		   return true;
 		        	   }
 		           
-		           if ((split[0].equalsIgnoreCase("/heal"))){           
-		        	   if ((Player.canUseCommand("/worldtools")) || (Player.canUseCommand("/heal"))){
+		           if ((label.equalsIgnoreCase("heal"))){           
+		        	   if ((Player.canUseCommand("worldtools")) || (Player.canUseCommand("heal"))){
 		    			   if (split.length <2 || split.length >2){
-		            		   Player.sendMessage("§cThe correct usage is /heal <player>");
+		            		   Player.sendMessage("§cThe correct usage is heal <player>");
 		            		   return true; 
 		    			   }else{
 		        		   Player player = Bukkit.getServer().matchPlayer(split[1]);
@@ -407,9 +411,9 @@ public class PlayerTools{
 		        		   Player.notify("You cant use this command");return true;
 		           }
 		           
-		           if (split[0].equalsIgnoreCase("/save-inv")){
-		        	   if (Player.canUseCommand("/worldtools") || (Player.canUseCommand("/save-inv"))){
-		        		   if (split.length <1 || split.length >1){Player.notify("The correct usage is '/save-inv'");return true;}
+		           if (label.equalsIgnoreCase("save-inv")){
+		        	   if (Player.canUseCommand("worldtools") || (Player.canUseCommand("save-inv"))){
+		        		   if (split.length <1 || split.length >1){Player.notify("The correct usage is 'save-inv'");return true;}
 		        	   etc.getServer().saveInventories();
 		        	   Player.sendMessage("§aInventories saved");
 		               return true;
@@ -417,9 +421,9 @@ public class PlayerTools{
 		        	   Player.notify("You cant use this command");return true;
 		           }
 		           
-		           if ((split[0].equalsIgnoreCase("/godmode"))) {
-		        	   if ((Player.canUseCommand("/godmode")) || (Player.canUseCommand("/worldtools"))){
-		        		   if (split.length > 2){Player.notify("The correct usage is /godmode (player)");return true;
+		           if ((label.equalsIgnoreCase("godmode"))) {
+		        	   if ((Player.canUseCommand("godmode")) || (Player.canUseCommand("worldtools"))){
+		        		   if (split.length > 2){Player.notify("The correct usage is godmode (player)");return true;
 		        	   }
 		        		   if (split.length == 1){
 				        	      if (!god.contains(Player.getName())) {
@@ -450,10 +454,10 @@ public class PlayerTools{
 		        	   Player.notify("You cant use this command");return true;
 		           }
 		           }
-		           if (split[0].equalsIgnoreCase("/feed")){
-		        	   if (Player.canUseCommand("/worldtools") || (Player.canUseCommand("/feed"))){
+		           if (label.equalsIgnoreCase("feed")){
+		        	   if (Player.canUseCommand("worldtools") || (Player.canUseCommand("feed"))){
 		        	   if (split.length <2 || split.length >2){
-		        		   Player.notify("The correct usage is /feed player");
+		        		   Player.notify("The correct usage is feed player");
 		        		   return true;
 		        	   }
 		        	   Player player2 = etc.getServer().matchPlayer(split[1]);
@@ -465,10 +469,10 @@ public class PlayerTools{
 		           }
 		        	   Player.notify("You cant use this command");return true;
 		           }
-		           if (split[0].equalsIgnoreCase("/getip")){
-		        	   if (Player.canUseCommand("/worldtools") || (Player.canUseCommand("/getip"))){
+		           if (label.equalsIgnoreCase("getip")){
+		        	   if (Player.canUseCommand("worldtools") || (Player.canUseCommand("getip"))){
 		        	   if (split.length <2 || split.length >2){
-		        		   Player.notify("The correct usage is /getip <player>");
+		        		   Player.notify("The correct usage is getip <player>");
 		        		   return true;
 		        	   }
 		        	   Player player2 = etc.getServer().matchPlayer(split[1]);
@@ -476,10 +480,10 @@ public class PlayerTools{
 		        	   Player.sendMessage("§4"+player2.getName()+"§2 His IP is §4"+player2.getIP());
 		        	   return true;
 		           }
-		           if (split[0].equalsIgnoreCase("/forcewarp")){
-		        	   if (Player.canUseCommand("/worldtools") || (Player.canUseCommand("/forcewarp"))){
+		           if (label.equalsIgnoreCase("forcewarp")){
+		        	   if (Player.canUseCommand("worldtools") || (Player.canUseCommand("forcewarp"))){
 		        	   if (split.length <3 || split.length >3){
-		        		   Player.notify("The correct usage is /forcewarp player warpname");
+		        		   Player.notify("The correct usage is forcewarp player warpname");
 		        		   return true;
 		        	   }
 		        	   Player player2 = etc.getServer().matchPlayer(split[1]);
@@ -494,10 +498,10 @@ public class PlayerTools{
 		           Player.notify("You cant use this command");return true;
 		           }
 		           
-		           if (split[0].equalsIgnoreCase("/switchworlds")){
-		        	   if (Player.canUseCommand("/worldtools") || (Player.canUseCommand("/switchworlds"))){
+		           if (label.equalsIgnoreCase("switchworlds")){
+		        	   if (Player.canUseCommand("worldtools") || (Player.canUseCommand("switchworlds"))){
 		        	   if (split.length <3 || split.length >3){
-		        		   Player.notify("The correct usage is /swichworlds player worldname");
+		        		   Player.notify("The correct usage is swichworlds player worldname");
 		        		   Player.notify("-1 = nether, 0 = normal world , 1 = end");
 		        		   return true;
 		        	   }
@@ -524,9 +528,9 @@ public class PlayerTools{
 		        	   Player.notify("You cant use this command");return true;
 		           }
 		           
-		             if (split[0].equalsIgnoreCase("/freeze")) {
-		        	   if (Player.canUseCommand("/freeze") || (Player.canUseCommand("/worldtools"))){
-		        		   if (split.length > 2 || split.length < 2){Player.notify("The correct usage is '/freeze <player>'");return true;}
+		             if (label.equalsIgnoreCase("freeze")) {
+		        	   if (Player.canUseCommand("freeze") || (Player.canUseCommand("worldtools"))){
+		        		   if (split.length > 2 || split.length < 2){Player.notify("The correct usage is 'freeze <player>'");return true;}
 		               Player offender = etc.getServer().matchPlayer(split[1]);
 		               if (offender == null){
 		            	   Player.notify("This Player does not exist or is currently not logged in!");
@@ -547,9 +551,9 @@ public class PlayerTools{
 		        	   Player.notify("You cant use this command");return true;
 		           }
 		           
-		           if (split[0].equalsIgnoreCase("/setspawn")){
-		        	   if (Player.canUseCommand("/setspawn")||Player.canUseCommand("/worldtools")){
-		        		   if (split.length > 1 || split.length < 1){Player.notify("The correct usage is '/setspawn'");return true;}
+		           if (label.equalsIgnoreCase("setspawn")){
+		        	   if (Player.canUseCommand("setspawn")||Player.canUseCommand("worldtools")){
+		        		   if (split.length > 1 || split.length < 1){Player.notify("The correct usage is 'setspawn'");return true;}
 		               exactSpawn = new Location(Player.getX(), Player.getY(), Player.getZ(), Player.getRotation(), Player.getPitch());
 		               PropertiesFile props = new PropertiesFile("worldtools.properties");
 		               props.setString("exact-spawn", exactSpawn.x + "," + exactSpawn.y + "," + exactSpawn.z + "," + exactSpawn.rotX + "," + exactSpawn.rotY);
@@ -558,18 +562,18 @@ public class PlayerTools{
 		        	   Player.notify("You cant use this command");return true;
 		             }
 		           
-		           if (split[0].equalsIgnoreCase("/spawn") && exactSpawn != null) {
-		        	   if ((Player.canUseCommand("/spawn")) || Player.canUseCommand("/worldtools")){
+		           if (label.equalsIgnoreCase("spawn") && exactSpawn != null) {
+		        	   if ((Player.canUseCommand("spawn")) || Player.canUseCommand("worldtools")){
 		               Player.teleportTo(exactSpawn);
 		               return true;
 		             }
 		        	   Player.notify("You cant use this command");return true;
 		           }
 		           
-		             if (split[0].equalsIgnoreCase("/locate")){
-		            	 if (Player.canUseCommand("/locate")|| Player.canUseCommand("/worldtools")){
+		             if (label.equalsIgnoreCase("locate")){
+		            	 if (Player.canUseCommand("locate")|| Player.canUseCommand("worldtools")){
 		            		 if (split.length > 2 || split.length < 2){
-		            			 Player.notify("The correct usage is '/locate <player>'");return true;
+		            			 Player.notify("The correct usage is 'locate <player>'");return true;
 		            		 }
 		            		 Player player2 = etc.getServer().matchPlayer(split[1]);
 		            		 if (player2 == null){Player.notify("§cTis player doesnt exist or is currently not logged in!");return true;}
@@ -579,33 +583,33 @@ public class PlayerTools{
 		            	 Player.notify("You cant use this command");return true;
 		             }
 		             }
-		           
+		}
 		     return false;
 		   }
 }
 
 /**
  * @commands
- * /drain
- * /drainlava
- * /drainwater
- * /ext
- * /melt
- * /snow
- * /lavafix
- * /waterfix
- * /lighter
- * /cmob
- * /wreplace
- * /killmobs
- * /suicide
- * /kill
- * /heal
- * /save-inv
- * /freeze
- * /godmode
- * /food
- * /swichworlds
- * /getip
+ * drain
+ * drainlava
+ * drainwater
+ * ext
+ * melt
+ * snow
+ * lavafix
+ * waterfix
+ * lighter
+ * cmob
+ * wreplace
+ * killmobs
+ * suicide
+ * kill
+ * heal
+ * save-inv
+ * freeze
+ * godmode
+ * food
+ * swichworlds
+ * getip
  */
-// end of class
+ end of class

@@ -39,6 +39,7 @@ import net.minecraft.server.v1_4_6.EntityOcelot;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.PortalType;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Ocelot;
@@ -54,6 +55,7 @@ import org.bukkit.event.block.BlockIgniteEvent;
 import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
 import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
@@ -89,12 +91,18 @@ WorldToolsProperties properties = new WorldToolsProperties();
     * Block Portal Creating
     * @author Glacksy
     */
-   public boolean onPortalCreate(Block[][] blocks)
+   @EventHandler
+   public void EntityCreatePortal(EntityCreatePortalEvent event)
    {
-	if (properties.BlockPortalCreating)
-	{
-	  event.setCancelled(true);return;
-    }
+	   PortalType e = event.getPortalType();
+	if (properties.BlockPortalNetherCreating && e == PortalType.NETHER){
+		event.setCancelled(true);
+		return;
+	}
+	if (properties.BlockPortalEnderCreating && e == PortalType.ENDER){
+		event.setCancelled(true);
+		return;
+	}
 	return;
    }
    
@@ -137,20 +145,19 @@ WorldToolsProperties properties = new WorldToolsProperties();
        event.setCancelled(true);
        return;
      }
-     if ((properties.BlockLighter) && (cause == IgniteCause.FLINT_AND_STEEL)
-     {
+     if ((properties.BlockLighter) && (cause == IgniteCause.FLINT_AND_STEEL)){
          event.setCancelled(true);
          return;
      }
-     if ((properties.BlockFireSpread) && (cause == IgniteCause.FIREBALL) {
+     if ((properties.BlockFireSpread) && (cause == IgniteCause.FIREBALL)) {
          event.setCancelled(true);
          return;
      }
-     if ((properties.BlockFireBlockDestory) && (cause == IgniteCause.FIREBALL) {
+     if ((properties.BlockFireBlockDestory) && (cause == IgniteCause.FIREBALL)) {
          event.setCancelled(true);
          return;
      }
-     if ((properties.BlockLightningFire) && (cause == IgniteCause.LIGHTNING) {
+     if ((properties.BlockLightningFire) && (cause == IgniteCause.LIGHTNING)) {
          event.setCancelled(true);
          return;
      }
@@ -448,9 +455,10 @@ WorldToolsProperties properties = new WorldToolsProperties();
    /**
     * Disable lightning strikes
     */
-   public boolean onLightningStrike(BaseEntity entity)
+   @EventHandler
+   public void onLightningStrike(LightningStrikeEvent event)
    {
-	   if (DisableLightningStrike) {
+	   if (properties.DisableLightningStrike) {
 		   event.setCancelled(true);return;
 	   }
 	   

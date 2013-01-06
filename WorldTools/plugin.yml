@@ -10,8 +10,8 @@ commands:
         description: Place snow and ice in a custom radius.
         usage: /snow <radius> - Melt snow/ice in a custom radius.
     kill:
-        description: Melt snow/ice in a custom radius.
-        usage: /kill <player> - Melt snow/ice in a custom radius.
+        description: Kill yourself or a player.
+        usage: /kill <player> - Kill yourself or a player.
     heal:
         description: Heal yourself to full health.
         usage: /heal <player> - Heal yourself to full health.
