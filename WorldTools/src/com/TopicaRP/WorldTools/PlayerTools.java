@@ -70,10 +70,10 @@ public class PlayerTools{
 			         for (int x = xmin; x <= xmax; x++) {
 			                 for (int y = ymin; y <= ymax; y++) {
 			                         for (int z = zmin; z <= zmax; z++) {    
-			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 8){player.getWorld().setBlockAt(95, x, y, z);}
-			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 95){player.getWorld().setBlockAt(9, x, y, z);}
-			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 10){player.getWorld().setBlockAt(95, x, y, z);}
-			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 95){player.getWorld().setBlockAt(11, x, y, z);}
+			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 8){player.getWorld().getBlockAt(x, y, z).setTypeId(95);}
+			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 95){player.getWorld().getBlockAt( x, y, z).setTypeId(9);}
+			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 10){player.getWorld().getBlockAt( x, y, z).setTypeId(95);}
+			                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 95){player.getWorld().getBlockAt( x, y, z).setTypeId(11);}
 			                         }
 			                       }
 			                     }
@@ -376,14 +376,14 @@ public class PlayerTools{
 		        		   player.sendMessage("§cThe correct usage is kill <player>");
 		        		   return true;
 		        	   }else{
-		        		   player player = Bukkit.getServer().matchPlayer(args[0]);
-		        		   if (player == null){
+		        		   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
+		        		   if (player2 == null){
 		        			   player.sendMessage("§c§cThis player Doesnt Exist or is currently not online!");
 		        			   return true;
 		        		   }
-		        		   player.sendMessage("§4You got killed by §2"+player.getName());
-		        		   player.dropInventory(player.getLocation());
-		        		   player.setHealth(0);
+		        		   player2.sendMessage("§4You got killed by §2"+player.getName());
+		        		   player2.dropInventory(player.getLocation());
+		        		   player2.setHealth(0);
 		        		   player.sendMessage("§2player sucsessfully killed!");
 		        		   return true;
 		        	   }
@@ -444,7 +444,7 @@ public class PlayerTools{
 		        	      if (!god.contains(player2.getName())) {
 		        	        god.add(player2.getName());
 		        	        player.sendMessage("§3Godmode have been enabled");
-		        	        player2.sendMe	ssage("§3Godmode have been enabled");
+		        	        player2.sendMessage("§3Godmode have been enabled");
 		        	        return true;
 		        	      }else{
 		        	      god.remove(player2.getName());
@@ -533,7 +533,7 @@ public class PlayerTools{
 		             if (label.equalsIgnoreCase("freeze")) {
 		        	   if (player.canUseCommand("freeze") || (player.canUseCommand("worldtools"))){
 		        		   if (args.length != 1){player.sendMessage("§cThe correct usage is 'freeze <player>'");return true;}
-		               player offender = Bukkit.getServer().matchPlayer(args[0]);
+		               Player offender = Bukkit.getServer().matchPlayer(args[0]);
 		               if (offender == null){
 		            	   player.sendMessage("§cThis player does not exist or is currently not logged in!");
 		            	   return true;
@@ -566,7 +566,7 @@ public class PlayerTools{
 		           
 		           if (label.equalsIgnoreCase("spawn") && exactSpawn != null) {
 		        	   if ((player.canUseCommand("spawn")) || player.canUseCommand("worldtools")){
-		               player.teleportTo(exactSpawn);
+		               player.teleport(exactSpawn);
 		               return true;
 		             }
 		        	   player.sendMessage("§cYou cant use this command");return true;
