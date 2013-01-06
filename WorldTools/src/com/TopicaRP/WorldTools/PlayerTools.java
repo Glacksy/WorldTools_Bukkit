@@ -20,6 +20,7 @@ package com.TopicaRP.WorldTools;
 import java.io.File;
 import java.util.ArrayList;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -86,7 +87,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("drainlava")){
 		    	 if ((player.canUseCommand("worldtools")) || (player.canUseCommand("drainlava"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable1) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable1) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: drainlava <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is drainlava <radius>");return true;}
@@ -114,7 +115,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("drainwater")) {
 		    	 if ((player.canUseCommand("worldtools")) || (player.canUseCommand("drainwater"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable2) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable2) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: drainwater <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is drainwater <radius>");return true;}
@@ -142,7 +143,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("ext")) {
 		    	 if ((player.canUseCommand("worldtools")) || (player.canUseCommand("ext"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable3) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable3) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: ext <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is ext <radius>");return true;}
@@ -169,7 +170,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("melt")) {
 		    	 if ((player.canUseCommand("worldtools")) || (player.canUseCommand("melt"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable4) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable4) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: melt <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is melt <radius>");return true;}
@@ -197,7 +198,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("snow")) {
 		    	 if ((player.canUseCommand("worldtools")) || (player.canUseCommand("snow"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable5) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable5) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: snow <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is snow <radius>");return true;}
@@ -226,7 +227,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("waterfix")) {
 		    	 if ((player.canUseCommand("worldtools")) && (player.canUseCommand("waterfix"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable6) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable6) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: waterfix <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is waterfix <radius>");return true;}
@@ -255,7 +256,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("lavafix")) {
 		    	 if ((player.canUseCommand("worldtool")) || (player.canUseCommand("lavafix"))){
 		       int dist = 0;
-		       if (split.length == 2) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable7) {
+		       if (args.length == 1) try { dist = Integer.parseInt(args[0]); } catch (Throwable localThrowable7) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: lavafix <radius>"); return true; }
 		         int radius = 0;
 		         try {radius = Integer.parseInt(args[0]);}catch(NumberFormatException nfe){player.sendMessage("§cThe correct usage is lavafix <radius>");return true;}
@@ -284,7 +285,7 @@ public class PlayerTools{
 		     if (label.equalsIgnoreCase("lighter")){ 
 		    	 if(player.canUseCommand("lighter") || (player.canUseCommand("worldtools"))) {
 		       int dist = 0;
-		       if (split.length == 0) try { dist = Integer.parseInt(label); } catch (Throwable localThrowable8) {
+		       if (args.length == 0) try { dist = Integer.parseInt(label); } catch (Throwable localThrowable8) {
 		         } if (dist == 0) { player.sendMessage("§cWrong syntax! Usage: lighter"); return true;
 		       }
 		       player.giveItem(260, 1);
@@ -309,9 +310,9 @@ public class PlayerTools{
 		    	 player.sendMessage("§cYou cant use this command");return true;
 		     }
 		     
-		     **
+		     /**
 		      * killmobs
-		      *
+		      */
 		     if (label.equalsIgnoreCase("killmobs")){
 		    		 if (player.canUseCommand("killmobs") || (player.canUseCommand("worldtools"))) {
 		         int mobcount = player.getWorld().getMobList().size();
@@ -324,13 +325,13 @@ public class PlayerTools{
 		    		 player.sendMessage("§cYou cant use this command");return true;
 		     }
 		     
-		     **
+		     /**
 		      * replace feature
 		      * 
-		      * 
+		      */ 
 		     if (label.equalsIgnoreCase("wreplace")){
 		    	 if ((player.canUseCommand("wreplace") || (player.canUseCommand("worldtools")))){
-		         if (split.length <4 || split.length >4){
+		         if (args.length != 3){
 		                 player.sendMessage("§cThe correct usage is 'wreplace fromid toid radius'");
 		                 return true;
 		         } 
@@ -350,14 +351,14 @@ public class PlayerTools{
 		 }
 		     
 		     if ((label.equalsIgnoreCase("worldtools")) && (player.canUseCommand("worldtools"))) {
-		    	 if (split.length >1 || split.length <1){player.sendMessage("§cThe correct usage is 'worldtools'");return true;}
+		    	 if (args.length != 0){player.sendMessage("§cThe correct usage is 'worldtools'");return true;}
 		           player.sendMessage("§6 WorldTools " + WorldTools.version + " by Glacksy §8&§6 Spenk");
 		           return true;
 		         }
 		     
 		     if ((label.equalsIgnoreCase("suicide"))){
 		    	 if ((player.canUseCommand("suicide") || (player.canUseCommand("worldtool")))){
-		    		 if (split.length >1 || split.length <1){player.sendMessage("§cThe correct usage is 'suicide'");return true;}
+		    		 if (args.length != 0){player.sendMessage("§cThe correct usage is 'suicide'");return true;}
 		           player.setHealth(0);
 		           player.sendMessage("§cYou committed suicide");
 		           return true;
@@ -371,11 +372,11 @@ public class PlayerTools{
 		      */
 		           if ((label.equalsIgnoreCase("kill"))){    
 		        	   if ((player.canUseCommand("worldtools")) || (player.canUseCommand("kill"))){
-		        		   if (split.length <2 || split.length >2){
+		        		   if (args.length != 1){
 		        		   player.sendMessage("§cThe correct usage is kill <player>");
 		        		   return true;
 		        	   }else{
-		        		   player player = etc.getServer().matchplayer(args[0]);
+		        		   player player = Bukkit.getServer().matchPlayer(args[0]);
 		        		   if (player == null){
 		        			   player.sendMessage("§c§cThis player Doesnt Exist or is currently not online!");
 		        			   return true;
@@ -393,18 +394,18 @@ public class PlayerTools{
 		           
 		           if ((label.equalsIgnoreCase("heal"))){           
 		        	   if ((player.canUseCommand("worldtools")) || (player.canUseCommand("heal"))){
-		    			   if (split.length <2 || split.length >2){
+		    			   if (args.length != 1){
 		            		   player.sendMessage("§cThe correct usage is heal <player>");
 		            		   return true; 
 		    			   }else{
-		        		   player player = Bukkit.getServer().matchplayer(args[0]);
-		        		   if (player == null){
+		        		   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
+		        		   if (player2 == null){
 		        			   player.sendMessage("§cThis player Doesnt Exist or is currently not online!");
 		        			   return true;
 		        		   }
-		        		   player.sendMessage("§4You were healed by §2"+player.getName());
-		        		   player.setHealth(20);
-		   				   player.setFoodLevel(20);
+		        		   player2.sendMessage("§4You were healed by §2"+player.getName());
+		        		   player2.setHealth(20);
+		   				   player2.setFoodLevel(20);
 		        		   player.sendMessage("§2player sucsessfully healed!");
 		        		   return true;
 		    			   }
@@ -414,8 +415,8 @@ public class PlayerTools{
 		           
 		           if (label.equalsIgnoreCase("save-inv")){
 		        	   if (player.canUseCommand("worldtools") || (player.canUseCommand("save-inv"))){
-		        		   if (split.length <1 || split.length >1){player.sendMessage("§cThe correct usage is 'save-inv'");return true;}
-		        	   etc.getServer().saveInventories();
+		        		   if (args.length != 0){player.sendMessage("§cThe correct usage is 'save-inv'");return true;}
+		        	   Bukkit.getServer().saveInventories();
 		        	   player.sendMessage("§aInventories saved");
 		               return true;
 		           }
@@ -424,9 +425,9 @@ public class PlayerTools{
 		           
 		           if ((label.equalsIgnoreCase("godmode"))) {
 		        	   if ((player.canUseCommand("godmode")) || (player.canUseCommand("worldtools"))){
-		        		   if (split.length > 2){player.sendMessage("§cThe correct usage is godmode (player)");return true;
+		        		   if (args.length > 1){player.sendMessage("§cThe correct usage is godmode (player)");return true;
 		        	   }
-		        		   if (split.length == 1){
+		        		   if (args.length == 0){
 				        	      if (!god.contains(player.getName())) {
 					        	        god.add(player.getName());
 					        	        player.sendMessage("§3Godmode have been enabled");
@@ -437,13 +438,13 @@ public class PlayerTools{
 					        	      return true;
 					        	      }
 		        		   }
-		        		   if (split.length == 2){
-		        			   player player2 = etc.getServer().matchplayer(args[0]);
+		        		   if (args.length == 1){
+		        			   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
 		        			   if (player2 == null){player.sendMessage("§cThis player does not exist or is not logged in!");return true;}
 		        	      if (!god.contains(player2.getName())) {
 		        	        god.add(player2.getName());
 		        	        player.sendMessage("§3Godmode have been enabled");
-		        	        player2.sendMessage("§3Godmode have been enabled");
+		        	        player2.sendMe	ssage("§3Godmode have been enabled");
 		        	        return true;
 		        	      }else{
 		        	      god.remove(player2.getName());
@@ -457,11 +458,11 @@ public class PlayerTools{
 		           }
 		           if (label.equalsIgnoreCase("feed")){
 		        	   if (player.canUseCommand("worldtools") || (player.canUseCommand("feed"))){
-		        	   if (split.length <2 || split.length >2){
+		        	   if (args.length != 1){
 		        		   player.sendMessage("§cThe correct usage is feed player");
 		        		   return true;
 		        	   }
-		        	   player player2 = etc.getServer().matchplayer(args[0]);
+		        	   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
 		        	   if (player2 == null) { player.sendMessage("§cThis player does not exist or is currently not logged in!"); return true;}
 		        	   player2.setFoodLevel(20);
 		        	   player.sendMessage("§2"+player2.getName()+"'s foodlevel is restored!");
@@ -472,22 +473,22 @@ public class PlayerTools{
 		           }
 		           if (label.equalsIgnoreCase("getip")){
 		        	   if (player.canUseCommand("worldtools") || (player.canUseCommand("getip"))){
-		        	   if (split.length <2 || split.length >2){
+		        	   if (args.length != 1){
 		        		   player.sendMessage("§cThe correct usage is getip <player>");
 		        		   return true;
 		        	   }
-		        	   player player2 = etc.getServer().matchplayer(args[0]);
+		        	   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
 		        	   if (player2 == null){player.sendMessage("§cThis player doesnt exist or is not logged in");return true;}
 		        	   player.sendMessage("§4"+player2.getName()+"§2 His IP is §4"+player2.getIP());
 		        	   return true;
 		           }
 		           if (label.equalsIgnoreCase("forcewarp")){
 		        	   if (player.canUseCommand("worldtools") || (player.canUseCommand("forcewarp"))){
-		        	   if (split.length <3 || split.length >3){
+		        	   if (args.length != 2){
 		        		   player.sendMessage("§cThe correct usage is forcewarp player warpname");
 		        		   return true;
 		        	   }
-		        	   player player2 = etc.getServer().matchplayer(args[0]);
+		        	   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
 		        	   if (player2 == null) { player.sendMessage("§cThis player does not exist or is currently not logged in!"); return true;}
 		        	   Warp warp = etc.getDataSource().getWarp(args[1]);
 		        	   if (warp == null){player.sendMessage("§cThis warp doesnt exist!");return true;}
@@ -501,12 +502,12 @@ public class PlayerTools{
 		           
 		           if (label.equalsIgnoreCase("switchworlds")){
 		        	   if (player.canUseCommand("worldtools") || (player.canUseCommand("switchworlds"))){
-		        	   if (split.length <3 || split.length >3){
+		        	   if (args.length != 2){
 		        		   player.sendMessage("§cThe correct usage is swichworlds player worldname");
 		        		   player.sendMessage("§c-1 = nether, 0 = normal world , 1 = end");
 		        		   return true;
 		        	   }
-		        	   player player2 = etc.getServer().matchplayer(args[0]);
+		        	   Player player2 = Bukkit.getServer().matchPlayer(args[0]);
 		        	   if (player2 == null) { player.sendMessage("§cThis player does not exist or is currently not logged in!"); return true;}
 		        	   
 		        	   File f = new File(args[1]);
@@ -515,12 +516,12 @@ public class PlayerTools{
 		        		   return true;
 		        	   }
 		        	   
-		        	   if (!etc.getServer().isWorldLoaded(args[1])){
+		        	   if (!Bukkit.getServer().isWorldLoaded(args[1])){
 		        		   player.sendMessage("§cThis world isnt loaded! please load it before you try to teleport!");
 		        		   return true;
 		        	   }
 		        	   
-		        	   World[] w = etc.getServer().getWorld(args[1]);
+		        	   World[] w = Bukkit.getServer().getWorld(args[1]);
 		        	   player2.switchWorlds(w[0]);
 		        	   player.sendMessage("§2"+player2.getName()+" Has swiched to world "+w[0].getName());
 		        	   player2.sendMessage("§2"+player.getName()+" Has swiched you to world "+w[0].getName());
@@ -531,8 +532,8 @@ public class PlayerTools{
 		           
 		             if (label.equalsIgnoreCase("freeze")) {
 		        	   if (player.canUseCommand("freeze") || (player.canUseCommand("worldtools"))){
-		        		   if (split.length > 2 || split.length < 2){player.sendMessage("§cThe correct usage is 'freeze <player>'");return true;}
-		               player offender = etc.getServer().matchplayer(args[0]);
+		        		   if (args.length != 1){player.sendMessage("§cThe correct usage is 'freeze <player>'");return true;}
+		               player offender = Bukkit.getServer().matchPlayer(args[0]);
 		               if (offender == null){
 		            	   player.sendMessage("§cThis player does not exist or is currently not logged in!");
 		            	   return true;
@@ -554,7 +555,7 @@ public class PlayerTools{
 		           
 		           if (label.equalsIgnoreCase("setspawn")){
 		        	   if (player.canUseCommand("setspawn")||player.canUseCommand("worldtools")){
-		        		   if (split.length > 1 || split.length < 1){player.sendMessage("§cThe correct usage is 'setspawn'");return true;}
+		        		   if (args.length != 0){player.sendMessage("§cThe correct usage is 'setspawn'");return true;}
 		               exactSpawn = new Location(player.getLocation().getX(), player.getLocation().getY(), player.getLocation().getZ(), player.getLocation().getRotation(), player.getLocation().getPitch());
 		               PropertiesFile props = new PropertiesFile("worldtools.properties");
 		               props.setString("exact-spawn", exactSpawn.x + "," + exactSpawn.y + "," + exactSpawn.z + "," + exactSpawn.rotX + "," + exactSpawn.rotY);
@@ -573,10 +574,10 @@ public class PlayerTools{
 		           
 		             if (label.equalsIgnoreCase("locate")){
 		            	 if (player.canUseCommand("locate")|| player.canUseCommand("worldtools")){
-		            		 if (split.length > 2 || split.length < 2){
+		            		 if (args.length != 1){
 		            			 player.sendMessage("§cThe correct usage is 'locate <player>'");return true;
 		            		 }
-		            		 player player2 = etc.getServer().matchplayer(args[0]);
+		            		 Player player2 = Bukkit.getServer().matchplayer(args[0]);
 		            		 if (player2 == null){player.sendMessage("§c§cTis player doesnt exist or is currently not logged in!");return true;}
 		            		 player.sendMessage(player2.getName()+"Is located in World:"+player2.getWorld().getName()+" in Dimension:"+player2.getLocation().dimension +" at location X:"+player2.getX() +" Y:"+player2.getY() +" Z:"+player2.getZ());
 		            		 return true;
