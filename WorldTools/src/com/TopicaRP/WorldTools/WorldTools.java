@@ -32,6 +32,8 @@ import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.TopicaRP.WorldTools.Files.WorldToolsWordProperties;
+
 /**
  * This is the main class file for WorldTools
  * @author Glacksy
@@ -40,7 +42,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class WorldTools extends JavaPlugin {
 
 	  static WorldToolsListener listener = new WorldToolsListener();
-	  static WorldToolsProperties properties = new WorldToolsProperties();
+	  static WorldToolsWordProperties filer = new WorldToolsWordProperties();
 	  static PlayerTools playertools = new PlayerTools();
 	  
 	  private static Logger log = Logger.getLogger("Minecraft");
@@ -125,16 +127,10 @@ public static class Listener{
     public static Object logger() { 
     	return logger;
     }
-    // Return settings
-    public static PropertiesFile Settings() {  
-    	return Settings;
-    }
-    public static Location exactSpawn() {  
-    	return exactSpawn;
-    }
+    
     public static void LoadAll() {
     	updatr.createUpdatrFile();
-    	properties.createfile();
+    	filer.createFiles();
     }
     
     

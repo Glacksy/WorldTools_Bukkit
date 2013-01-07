@@ -7,6 +7,8 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 
+import com.TopicaRP.WorldTools.Files.WorldToolsWordProperties;
+
 /*
  * WorldTools
  * Copyright (C) 2012
@@ -28,7 +30,7 @@ import org.bukkit.event.Listener;
 public class WorldToolsVoids implements Listener{
 
 	static Player player;  
-	WorldToolsProperties props = new WorldToolsProperties();
+	WorldToolsWordProperties props = new WorldToolsWordProperties();
 	
     /**
 	 * Load and enable ExactSpawn feature
