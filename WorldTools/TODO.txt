@@ -25,4 +25,6 @@ also the wolf HAVE to be tamed or this wont work.
 - add  /locate <player> , this will return world, dimension, coords
 - add /stoplag  ,  this will kill all mobs, kill all items in all dimensions and worlds. will also disable redstone changes so "lagg machines wont work"
 
-!!! important change all booleans into strings witch return an stringarray of worlds!!!
+add warps
+add homes
+add kits

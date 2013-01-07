@@ -6,7 +6,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
-import org.bukkit.inventory.ItemStack;
 
 /*
  * WorldTools
@@ -35,9 +34,8 @@ public class WorldToolsVoids implements Listener{
 	 * Load and enable ExactSpawn feature
 	 * This load onEnable
 	 */
-	public void EnableExactSpawn() {
+	public Location EnableExactSpawn() {
 		  if (props.ExactSpawn) {
-			Location exactSpawn;
 		    String[] data = props.ExactSpawnLoc.split(",");
 		    double x = Double.parseDouble(data[0]);
 		    double y = Double.parseDouble(data[1]);
@@ -45,8 +43,9 @@ public class WorldToolsVoids implements Listener{
 		    float  rotX = Float.parseFloat(data[3]);
 		    float  rotY = Float.parseFloat(data[4]);
 		    World  world = Bukkit.getWorld(data[5]);
-		    exactSpawn = new Location(world, x, y, z, rotX, rotY);
+		    return new Location(world, x, y, z, rotX, rotY);
 		  }
+		return null;
 	}
 	/**
 	 *

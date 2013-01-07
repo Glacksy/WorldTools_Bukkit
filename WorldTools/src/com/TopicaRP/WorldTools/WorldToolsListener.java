@@ -58,10 +58,14 @@ import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.entity.EntityCreatePortalEvent;
 import org.bukkit.event.entity.EntityDamageByBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.player.PlayerLoginEvent;
+import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class WorldToolsListener implements Listener {   
 WorldToolsProperties properties = new WorldToolsProperties();
+PlayerTools tools = new PlayerTools();
+WorldToolsVoids voids = new WorldToolsVoids();
    /**
     * Block onExplosion related stuff
     * @author Glacksy
@@ -655,26 +659,6 @@ public void onPlayerMove(Player player,Location from,Location to){
 		}
 	}
 }
-public boolean onHealthChange(Player player,int oldValue,int newValue){
-	
-	if ((TpHomeOnDeath) || (oldValue <= 0) || (newValue == 20)) {
-        Warp loc = etc.getDataSource().getHome(player.getName());
-        if (loc != null) {
-          player.teleportTo(loc.Location);
-        }
-        event.setCancelled(true);return;
-   }
-	
-	if (newValue < 1){
-		if (kickondeath){
-			if (!player.canUseCommand("/worldtools")){
-			reason = reason.replace("&", "§");
-		player.kick(reason);	
-		}	
-	  }
-	}
-	return;
-}
 /**
  * @function keep chunks loaded
  * @author Spenk
@@ -737,16 +721,12 @@ public boolean onBlockBreak(Player player,Block block){
 	}
 	return;
 }
-
-public void onPlayerMove(Player player, Location from, Location to) {
-    if (frozen.contains(player.getName()))
-      player.teleportTo(from);
-  }
-public void onLogin(Player player) {
-    if (god.contains(player.getName()))
-    if (god.contains(player.getName()))
-      god.remove(player.getName());
-      god.remove(player.getName());
+@EventHandler
+public void onPlayerMove(PlayerMoveEvent event){
+	Player player = event.getPlayer();
+	Location from = event.getFrom();
+    if (tools.frozen.contains(player.getName()))
+      player.teleport(from);
   }
 
 public boolean onDamage(DamageCause type, BaseEntity attacker, BaseEntity defender, int amount)
@@ -775,24 +755,42 @@ if ((defender.isPlayer()) &&
 	    }
 return;
 }
-
-public void onLogin(Player player)
-{
+@EventHandler
+public void onPlayerLogin(PlayerLoginEvent event){
+	Player player = event.getPlayer();
   Location spawn = null;
-  if (exactSpawn != null)
-    spawn = exactSpawn;
+  if (voids.EnableExactSpawn()!= null)
+    spawn = voids.EnableExactSpawn();
   else {
     spawn = player.getWorld().getSpawnLocation();
   }
 
-  if ((Math.abs(player.getX() - spawn.x) <= 12.0D) && (Math.abs(player.getZ() - spawn.z) <= 12.0D))
+  if ((Math.abs(player.getLocation().getX() - spawn.getX()) <= 12.0D) && (Math.abs(player.getLocation().getZ() - spawn.getZ()) <= 12.0D))
     player.teleport(spawn);
 }
 
 public boolean onHealthChange(Player player, int oldValue, int newValue) {
+	
+	if ((properties.TpHomeOnDeath) && (oldValue <= 0) && (newValue == 20)) {
+        Location loc = etc.getDataSource().getHome(player.getName());
+        if (loc != null) {
+          player.teleportTo(loc.Location);
+        }
+        event.setCancelled(true);return;
+   }
+	
+	if (newValue < 1){
+		if (kickondeath){
+			if (!player.canUseCommand("/worldtools")){
+			reason = reason.replace("&", "§");
+		player.kick(reason);	
+		}	
+	  }
+	}
+	
     Location spawn = null;
-    if (exactSpawn != null)
-      spawn = exactSpawn;
+    if (voids.EnableExactSpawn() != null)
+      spawn = voids.EnableExactSpawn();
     else {
       spawn = player.getWorld().getSpawnLocation();
     }
