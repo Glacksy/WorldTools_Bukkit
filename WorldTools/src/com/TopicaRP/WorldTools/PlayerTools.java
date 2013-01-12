@@ -109,6 +109,9 @@ public class PlayerTools{
 		if (label.equalsIgnoreCase("spawn") && w.perms.has(sender, "WorldTools.spawn") && isCommandEnabled("spawn")){
 			//warp a player or yourself to spawn or spawn all
 		}
+		if (label.equalsIgnoreCase("warplist") && w.perms.has(sender, "WorldTools.warplist") && isCommandEnabled("warplist")){
+			//sends a list of warps
+		}
 		if (label.equalsIgnoreCase("warp") && w.perms.has(sender, "WorldTools.warp") && isCommandEnabled("warp")){
 			//warp a player or yourself to a warp or warp all
 		}
@@ -136,7 +139,7 @@ public class PlayerTools{
 		if ((label.equalsIgnoreCase("reply") || label.equalsIgnoreCase("r")) && w.perms.has(sender, "WorldTools.reply") && isCommandEnabled("reply")){
 			//reply on your message
 		}
-		if (label.equalsIgnoreCase("me") && w.perms.has(sender, "WorldTools.me") && isCommandEnabled("me")){
+		if ((label.equalsIgnoreCase("me")||label.equalsIgnoreCase("emote")) && w.perms.has(sender, "WorldTools.me") && isCommandEnabled("me")){
 			//says an action you could do /me color message ? or /me message
 		}
 		if ((label.equalsIgnoreCase("pinfo") || label.equalsIgnoreCase("whois") || label.equalsIgnoreCase("playerinfo")) && w.perms.has(sender, "WorldTools.playerinfo") && isCommandEnabled("playerinfo")){
@@ -244,6 +247,57 @@ public class PlayerTools{
 		if ((label.equalsIgnoreCase("gm")||label.equalsIgnoreCase("mode")) && w.perms.has(sender, "WorldTools.gamemode") && isCommandEnabled("gamemode")){
 			//changes player gamemode or your own
 		}
+		if (label.equalsIgnoreCase("freeze") && w.perms.has(sender, "WorldTools.freeze") && isCommandEnabled("freeze")){
+			//freezes a player or yourself or all players
+		}
+		if (label.equalsIgnoreCase("melt") && w.perms.has(sender, "WorldTools.melt") && isCommandEnabled("melt")){
+			//melts the radius arround you from snow/ice
+		}
+		if (label.equalsIgnoreCase("snow") && w.perms.has(sender, "WorldTools.snow") && isCommandEnabled("snow")){
+			//snows the radius arround you
+		}
+		if (label.equalsIgnoreCase("wreplace") && w.perms.has(sender, "WorldTools.wreplace") && isCommandEnabled("wreplace")){
+			//replaces a block type arround you in a radius
+		}
+		if ((label.equalsIgnoreCase("fwater")||label.equalsIgnoreCase("fixwater")) && w.perms.has(sender, "WorldTools.fixwater") && isCommandEnabled("fixwater")){
+			//changes all flowing water in stable water arround you in a radius
+		}
+		if ((label.equalsIgnoreCase("flava")||label.equalsIgnoreCase("fixlava")) && w.perms.has(sender, "WorldTools.fixlava") && isCommandEnabled("fixlava")){
+			//changes all flowing lava in stable lava arround you in a radius
+		}
+		if (label.equalsIgnoreCase("lighter") && w.perms.has(sender, "WorldTools.lighter") && isCommandEnabled("lighter")){
+			//gives you a lighter
+		}
+		if (label.equalsIgnoreCase("supertool") && w.perms.has(sender, "WorldTools.supertool") && isCommandEnabled("supertool")){
+			//changes the tool in your hand into a super blockbreaker (drops toggleable in props)
+		}
+		if ((label.equalsIgnoreCase("extinguish")||label.equalsIgnoreCase("ex")) && w.perms.has(sender, "WorldTools.extinguish") && isCommandEnabled("extinguish")){
+			//removes all fire in a radius
+		}
+		if ((label.equalsIgnoreCase("ri")||label.equalsIgnoreCase("removeitems"))&& w.perms.has(sender, "WorldTools.removeitems") && isCommandEnabled("removeitems")){
+			//removes all item entity's in a radius or in a world
+		}
+		if (label.equalsIgnoreCase("goto")&& w.perms.has(sender, "WorldTools.goto") && isCommandEnabled("goto")){
+			//go to the block you are pointing at
+		}
+		if (label.equalsIgnoreCase("up")&& w.perms.has(sender, "WorldTools.up") && isCommandEnabled("up")){
+			//go x amounts of blocks up
+		}
+		if (label.equalsIgnoreCase("enableplugin")&& w.perms.has(sender, "WorldTools.enableplugin") && isCommandEnabled("enableplugin")){
+			//enables a plugin
+		}
+		if (label.equalsIgnoreCase("reloadplugin")&& w.perms.has(sender, "WorldTools.reloadplugin") && isCommandEnabled("reloadplugin")){
+			//reloads a plugin
+		}
+		if (label.equalsIgnoreCase("disableplugin")&& w.perms.has(sender, "WorldTools.disableplugin") && isCommandEnabled("disableplugin")){
+			//disables a plugin
+		}
+		if (label.equalsIgnoreCase("worldtools")&& w.perms.has(sender, "WorldTools.worldtools") && isCommandEnabled("worldtools")){
+			//sends info about worldtools
+		}
+		if (label.equalsIgnoreCase("item")&& w.perms.has(sender, "WorldTools.item") && isCommandEnabled("item")){
+			//gives yourself or a player an item
+		}
 		
 		return false;
 	}
@@ -264,6 +318,7 @@ public class PlayerTools{
 	//jail commands
 	//display server lagg memory etc
 	//invsee ??
+	//setbiome
 }
 	 
 
