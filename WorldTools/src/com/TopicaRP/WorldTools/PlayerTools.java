@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -38,10 +39,237 @@ import org.bukkit.entity.Player;
  */
 public class PlayerTools{
 	
-	ArrayList<String> god = new ArrayList<String>();
+	public boolean isCommandEnabled(String c){
+		return false;//some thing to check if a command is enabled
+		// add feature to set in properties
+	}
+	
+	public boolean isPlayer(CommandSender s){
+		if (s instanceof Player){
+			return true;
+		}
+		return false;
+	}
+	
+	public Player getPlayerFromSender(CommandSender s){
+		if (s instanceof Player){
+			return (Player)s;
+		}
+		return null;
+	}
+	
+	WorldTools w = new WorldTools();
+	World world;
+	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+		if (label.equalsIgnoreCase("Tree") && w.perms.has(sender, "WorldTools.tree") && isCommandEnabled("tree")){
+			//generate a tree /tree <type>
+		}
+		if (label.equalsIgnoreCase("Break") && w.perms.has(sender, "WorldTools.break") && isCommandEnabled("break")){
+			//breaks blocks you are looking at /break (radius)
+		}
+		if (label.equalsIgnoreCase("Explode") && w.perms.has(sender, "WorldTools.explode") && isCommandEnabled("explode")){
+			//generate a tree /explode (radius) || /explode (player) mess with power, createfire, breakblocks
+		}
+		if (label.equalsIgnoreCase("Explode") && w.perms.has(sender, "WorldTools.explode") && isCommandEnabled("explode")){
+			//generate a tree /explode (radius) || /explode (player) mess with power, createfire, breakblocks
+		}
+		if (label.equalsIgnoreCase("Enchant") && w.perms.has(sender, "WorldTools.enchant") && isCommandEnabled("enchant")){
+			//enchant command /enchant type power etc etc
+		}
+		if (label.equalsIgnoreCase("Feed") && w.perms.has(sender, "WorldTools.feed") && isCommandEnabled("feed")){
+			//feed a player or yourself or feed all
+		}
+		if (label.equalsIgnoreCase("heal") && w.perms.has(sender, "WorldTools.heal") && isCommandEnabled("heal")){
+			//heal a player or yourself or heal all
+		}
+		if (label.equalsIgnoreCase("starvate") && w.perms.has(sender, "WorldTools.starvate") && isCommandEnabled("starvate")){
+			//starvate a player or yourself or starvate all
+		}
+		if (label.equalsIgnoreCase("slap") && w.perms.has(sender, "WorldTools.slap") && isCommandEnabled("slap")){
+			//slap a player or yourself or slap all
+		}
+		if (label.equalsIgnoreCase("maim") && w.perms.has(sender, "WorldTools.maim") && isCommandEnabled("maim")){
+			//maim a player or yourself to an inch of their live or maim all
+		}
+		if (label.equalsIgnoreCase("kill") && w.perms.has(sender, "WorldTools.kill") && isCommandEnabled("kill")){
+			//kill a player or yourself or kill all
+		}
+		if (label.equalsIgnoreCase("hat") && w.perms.has(sender, "WorldTools.hat") && isCommandEnabled("hat")){
+			//put a block on a players head or your own or set it on all
+		}
+		if (label.equalsIgnoreCase("god") && w.perms.has(sender, "WorldTools.god") && isCommandEnabled("god")){
+			//put yourself or a player in godmode or set all in godmode
+		}
+		if (label.equalsIgnoreCase("kit") && w.perms.has(sender, "WorldTools.kit") && isCommandEnabled("kit")){
+			//give yourself or a player a kit or give all a kit
+		}
+		if (label.equalsIgnoreCase("home") && w.perms.has(sender, "WorldTools.home") && isCommandEnabled("home")){
+			//warp a player or yourself to home or home all
+		}
+		if (label.equalsIgnoreCase("spawn") && w.perms.has(sender, "WorldTools.spawn") && isCommandEnabled("spawn")){
+			//warp a player or yourself to spawn or spawn all
+		}
+		if (label.equalsIgnoreCase("warp") && w.perms.has(sender, "WorldTools.warp") && isCommandEnabled("warp")){
+			//warp a player or yourself to a warp or warp all
+		}
+		if (label.equalsIgnoreCase("sethome") && w.perms.has(sender, "WorldTools.sethome") && isCommandEnabled("sethome")){
+			//setwarp a player or yourself to sethome or home all
+		}
+		if (label.equalsIgnoreCase("setspawn") && w.perms.has(sender, "WorldTools.setspawn") && isCommandEnabled("setspawn")){
+			//setwarp a player or yourself to setspawn or spawn all
+		}
+		if (label.equalsIgnoreCase("setwarp") && w.perms.has(sender, "WorldTools.setwarp") && isCommandEnabled("setwarp")){
+			//setwarp a player or yourself to a setwarp or warp all
+		}
+		if (label.equalsIgnoreCase("repair") && w.perms.has(sender, "WorldTools.repair") && isCommandEnabled("repair")){
+			//repairs the item in your hand
+		}
+		if (label.equalsIgnoreCase("afk") && w.perms.has(sender, "WorldTools.afk") && isCommandEnabled("afk")){
+			//puts your status on afk or back - all messages / things sent to a player must be in mail form
+		}
+		if (label.equalsIgnoreCase("pos") && w.perms.has(sender, "WorldTools.pos") && isCommandEnabled("pos")){
+			//get your position and heading
+		}
+		if ((label.equalsIgnoreCase("msg") || label.equalsIgnoreCase("m")) && w.perms.has(sender, "WorldTools.msg") && isCommandEnabled("msg")){
+			//message a player //show in logs // and add admin can see support
+		}
+		if ((label.equalsIgnoreCase("reply") || label.equalsIgnoreCase("r")) && w.perms.has(sender, "WorldTools.reply") && isCommandEnabled("reply")){
+			//reply on your message
+		}
+		if (label.equalsIgnoreCase("me") && w.perms.has(sender, "WorldTools.me") && isCommandEnabled("me")){
+			//says an action you could do /me color message ? or /me message
+		}
+		if ((label.equalsIgnoreCase("pinfo") || label.equalsIgnoreCase("whois") || label.equalsIgnoreCase("playerinfo")) && w.perms.has(sender, "WorldTools.playerinfo") && isCommandEnabled("playerinfo")){
+			//shows all player data ip location world name nick group etc etc
+		}
+		if (label.equalsIgnoreCase("rules") && w.perms.has(sender, "WorldTools.rules") && isCommandEnabled("rules")){
+			//shows the rules (im gonna add this for mysql and properties)
+		}
+		if (label.equalsIgnoreCase("addrule") && w.perms.has(sender, "WorldTools.addrule") && isCommandEnabled("addrule")){
+			//adds a rule include colors /addrule &4Rule4 etc etc should return a string
+		}
+		if (label.equalsIgnoreCase("deleterule") && w.perms.has(sender, "WorldTools.deleterule") && isCommandEnabled("deleterule")){
+			//deletes a rule
+		}
+		if (label.equalsIgnoreCase("seen") && w.perms.has(sender, "WorldTools.seen") && isCommandEnabled("seen")){
+			//checks when a player was on for the last time (yeah i also add a mysql table for this)
+		}
+		if (label.equalsIgnoreCase("played") && w.perms.has(sender, "WorldTools.played") && isCommandEnabled("played")){
+			//shows the amount someone played on the server (yeah also this is related with seen)
+		}
+		if (label.equalsIgnoreCase("cannon") && w.perms.has(sender, "WorldTools.cannon") && isCommandEnabled("cannon")){
+			//shoots a fire ball 
+		}
+		if (label.equalsIgnoreCase("arrow") && w.perms.has(sender, "WorldTools.arrow") && isCommandEnabled("arrow")){
+			//arrows a player
+		}
+		if ((label.equalsIgnoreCase("ci") || label.equalsIgnoreCase("clearinventory")) && w.perms.has(sender, "WorldTools.clearinventory") && isCommandEnabled("clearinventory")){
+			//clears your or another players inventory
+		}
+		if ((label.equalsIgnoreCase("broadcast")||label.equalsIgnoreCase("bc")) && w.perms.has(sender, "WorldTools.broadcast") && isCommandEnabled("broadcast")){
+			//sends a message to the server maybe /bc color message
+		}
+		if (label.equalsIgnoreCase("fire") && w.perms.has(sender, "WorldTools.fire") && isCommandEnabled("fire")){
+			//fire a player
+		}
+		if (label.equalsIgnoreCase("lightning") && w.perms.has(sender, "WorldTools.lightning") && isCommandEnabled("lightning")){
+			//lightning a player or a lightning wand
+		}
+		if ((label.equalsIgnoreCase("spawnmob")||label.equalsIgnoreCase("smob")) && w.perms.has(sender, "WorldTools.spawnmob") && isCommandEnabled("spawnmob")){
+			//spawn a mob (maybe add costs for a mob)
+		}
+		if (label.equalsIgnoreCase("mspawn") && w.perms.has(sender, "WorldTools.mspawn") && isCommandEnabled("mspawn")){
+			//change the spawner mob (add ico maybe costs)
+		}
+		if (label.equalsIgnoreCase("slaughter") && w.perms.has(sender, "WorldTools.slaughter") && isCommandEnabled("slaughter")){
+			//kill all mobs in radius / world /slaughter (w|r)
+		}
+		if ((label.equalsIgnoreCase("psay") || label.equalsIgnoreCase("/playersay")) && w.perms.has(sender, "WorldTools.playersay") && isCommandEnabled("playersay")){
+			//make a player parse a command or say something
+		}
+		if (label.equalsIgnoreCase("weather") && w.perms.has(sender, "WorldTools.weather") && isCommandEnabled("weather")){
+			//canary's weather command
+		}
+		if (label.equalsIgnoreCase("time") && w.perms.has(sender, "WorldTools.time") && isCommandEnabled("time")){
+			//canary's weather command
+		}
+		if (label.equalsIgnoreCase("timeshow") && w.perms.has(sender, "WorldTools.timeshow") && isCommandEnabled("timeshow")){
+			//shows the time of world /timeshow world
+		}
+		if ((label.equalsIgnoreCase("rtime")||label.equalsIgnoreCase("realtime")) && w.perms.has(sender, "WorldTools.realtime") && isCommandEnabled("realtime")){
+			//shows the real time
+		}
+		if ((label.equalsIgnoreCase("rdate")||label.equalsIgnoreCase("realdate")) && w.perms.has(sender, "WorldTools.realdate") && isCommandEnabled("realdate")){
+			//shows the real date
+		}
+		if (label.equalsIgnoreCase("tpa") && w.perms.has(sender, "WorldTools.tpa") && isCommandEnabled("tpa")){
+			//tpa to a player
+		}
+		if (label.equalsIgnoreCase("tp") && w.perms.has(sender, "WorldTools.tp") && isCommandEnabled("tp")){
+			//tp to a player
+		}
+		if (label.equalsIgnoreCase("tpahre") && w.perms.has(sender, "WorldTools.tpahere") && isCommandEnabled("tpahere")){
+			//tpa a player to you
+		}
+		if (label.equalsIgnoreCase("tphere") && w.perms.has(sender, "WorldTools.tphere") && isCommandEnabled("tphere")){
+			//tp a player to you
+		}
+		if (label.equalsIgnoreCase("tpto") && w.perms.has(sender, "WorldTools.tpto") && isCommandEnabled("tpto")){
+			//tp a player to coords or another player
+		}
+		if ((label.equalsIgnoreCase("wtp") || label.equalsIgnoreCase("worldtp")) && w.perms.has(sender, "WorldTools.worldtp") && isCommandEnabled("worldtp")){
+			//tp a player or yourself to another world / dimension
+		}
+		if (label.equalsIgnoreCase("tptoggle") && w.perms.has(sender, "WorldTools.tptoggle") && isCommandEnabled("tptoggle")){
+			//deny players to tp to you or tp you to them
+		}
+		if ((label.equalsIgnoreCase("ch") || label.equalsIgnoreCase("channel")) && w.perms.has(sender, "WorldTools.channel") && isCommandEnabled("channel")){
+			//change your chat channel (also /ch msg (player))
+		}
+		if ((label.equalsIgnoreCase("chcreate") || label.equalsIgnoreCase("channelcreate")) && w.perms.has(sender, "WorldTools.channelcreate") && isCommandEnabled("channelcreate")){
+			//create a new chat channel
+		}
+		if ((label.equalsIgnoreCase("chdelete") || label.equalsIgnoreCase("channeldelete")) && w.perms.has(sender, "WorldTools.channeldelete") && isCommandEnabled("channeldelete")){
+			//delete a chat channel
+		}
+		if ((label.equalsIgnoreCase("motd") || label.equalsIgnoreCase("motd")) && w.perms.has(sender, "WorldTools.motd") && isCommandEnabled("motd")){
+			//show the motd
+		}
+		if (label.equalsIgnoreCase("biome") && w.perms.has(sender, "WorldTools.biome") && isCommandEnabled("biome")){
+			//show the biome you are in (or another player is) maybe coords
+		}
+		if (label.equalsIgnoreCase("mail") && w.perms.has(sender, "WorldTools.mail") && isCommandEnabled("mail")){
+			//shows the mailbox ./mail x shows the mail page , /mail show x shows the specified mail. /mail del x deletes a specified mail,  /mail send player mails a player, / mail clear clears all mail
+		}
+		if ((label.equalsIgnoreCase("gm")||label.equalsIgnoreCase("mode")) && w.perms.has(sender, "WorldTools.gamemode") && isCommandEnabled("gamemode")){
+			//changes player gamemode or your own
+		}
+		
+		return false;
+	}
+	//playertime = change the time for the player
+	//change speed limits ?
+	//mail
+	//nick
+	//something to make item in hand or handswing parse a command
+	//ban
+	//kick
+	//banip
+	//mute
+	//ban
+	//unban
+	//unmute
+	//backup
+	//enderchest <player>
+	//jail commands
+	//display server lagg memory etc
+	//invsee ??
+}
+	
+	/**ArrayList<String> god = new ArrayList<String>();
 	ArrayList<String> frozen = new ArrayList<String>();
 	
-	private static Location exactSpawn = null;
+	//private static Location exactSpawn = null;
 	
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (sender instanceof Player){
@@ -273,7 +501,7 @@ public class PlayerTools{
 		                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 10){player.getWorld().setBlockAt(95, x, y, z);}
 		                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 11){player.getWorld().setBlockAt(95, x, y, z);}
 		                    if (player.getWorld().getBlockTypeIdAt(x, y, z) == 95){player.getWorld().setBlockAt(9, x, y, z);}
-		                         }//TODO
+		                         }
 		                       }
 		                     }
 		       player.sendMessage("§a Lava Successfully Fixed!");
@@ -309,10 +537,7 @@ public class PlayerTools{
 		       }
 		    	 player.sendMessage("§cYou cant use this command");return true;
 		     }
-		     
-		     /**
-		      * killmobs
-		      */
+
 		     if (label.equalsIgnoreCase("killmobs")){
 		    		 if (player.canUseCommand("killmobs") || (player.canUseCommand("worldtools"))) {
 		         int mobcount = player.getWorld().getMobList().size();
@@ -325,10 +550,6 @@ public class PlayerTools{
 		    		 player.sendMessage("§cYou cant use this command");return true;
 		     }
 		     
-		     /**
-		      * replace feature
-		      * 
-		      */ 
 		     if (label.equalsIgnoreCase("wreplace")){
 		    	 if ((player.canUseCommand("wreplace") || (player.canUseCommand("worldtools")))){
 		         if (args.length != 3){
@@ -366,10 +587,6 @@ public class PlayerTools{
 		    	 player.sendMessage("§cYou cant use this command");return true;
 		     }
 		     
-		     /**
-		      * kill code
-		      * @author spenk
-		      */
 		           if ((label.equalsIgnoreCase("kill"))){    
 		        	   if ((player.canUseCommand("worldtools")) || (player.canUseCommand("kill"))){
 		        		   if (args.length != 1){
@@ -588,7 +805,7 @@ public class PlayerTools{
 		}
 		     return false;
 		   }
-}
+}*/
 
 /**
  * @commands
