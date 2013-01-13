@@ -27,6 +27,8 @@ import java.util.logging.Logger;
 
 public class updatr extends WorldTools {
 
+	static Logger log = Logger.getLogger("minecraft");
+	
 	/**
 	 * Generate updatr file
 	 * This Does Only Generate If The updatr Folder Exist, so only if you use updatr this will be generated
@@ -37,7 +39,7 @@ public class updatr extends WorldTools {
 		    
 		    if (updatrDir.exists())
 		    {
-		      File updatrFile = new File("Updatr" + File.separator + Listener.pluginName() + ".updatr");
+		      File updatrFile = new File("Updatr" + File.separator + WorldTools.pluginName + ".updatr");
 		      if (!updatrFile.exists())
 		      {
 		        updatrFile.createNewFile();
@@ -53,7 +55,7 @@ public class updatr extends WorldTools {
 		    }
 		  }
 		  catch (IOException e) {
-		    ((Logger)Listener.logger()).log(Level.SEVERE, null, e);
+		    log.log(Level.SEVERE, null, e);
 		  }
 		}
 

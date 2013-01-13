@@ -1,4 +1,4 @@
-package com.TopicaRP.WorldTools.Files;
+package com.TopicaRP.WorldTools.Files.DataBase;
 
 import java.io.File;
 import java.util.HashMap;
@@ -8,7 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
 
-import com.TopicaRP.WorldTools.PropertiesFile;
+import com.TopicaRP.WorldTools.Files.PropertiesFile;
 
 public class WorldToolsWarps {
 

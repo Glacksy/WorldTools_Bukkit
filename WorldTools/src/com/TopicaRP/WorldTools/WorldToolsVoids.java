@@ -33,6 +33,8 @@ import com.TopicaRP.WorldTools.Files.WorldToolsCommands;
  */
 public class WorldToolsVoids implements Listener{
 	
+	ArrayList<String> godMode = new ArrayList<String>();
+	
 	/**
 	 * 
 	 * checks if a player has decent permissions
@@ -501,6 +503,38 @@ public class WorldToolsVoids implements Listener{
 		return -1;
 	}
 	
+	/**
+	 * 
+	 * adds a player to godmode
+	 * 
+	 * @param player
+	 * @return true if action succeed
+	 * @return false if player is already in godmode
+	 */
+	public boolean addGodMode(Player player){
+		if (!godMode.contains(player.getName())){
+			godMode.add(player.getName());
+			return true;
+		}
+		return false;
+	}
+	
+	/**
+	 * 
+	 * removes a player from godmode
+	 * 
+	 * @param player
+	 * @return true if action succeed
+	 * @return false if player is not in godmode
+	 */
+	public boolean removeGodMode(Player player){
+		if (!godMode.contains(player.getName())){
+			return false;
+		}
+		godMode.remove(player.getName());
+		return true;
+	}
+
 	
 	public static void fillarea(Block b, int radius){
 		int xmin = (int)b.getX()-radius;

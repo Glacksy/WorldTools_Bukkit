@@ -1,5 +1,28 @@
+TODO LIST NEW:
 
-TODO LIST:
+- finish all commands
+- add death teleport
+- finish repair class
+- make a storage for mailbox
+- mysql storage for rules
+- initialize all mysql storages
+ 
+- options for teleport on various events like login and death (set in props)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TODO LIST OLD:
 
 - classic water  (done i think)
 - disable health regain
@@ -25,6 +48,4 @@ also the wolf HAVE to be tamed or this wont work.
 - add  /locate <player> , this will return world, dimension, coords
 - add /stoplag  ,  this will kill all mobs, kill all items in all dimensions and worlds. will also disable redstone changes so "lagg machines wont work"
 
-add warps
-add homes
-add kits
+

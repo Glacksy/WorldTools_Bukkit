@@ -27,11 +27,11 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Server;
+import org.bukkit.World;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import com.TopicaRP.WorldTools.Files.WorldToolsWordProperties;
+import com.TopicaRP.WorldTools.Files.WorldToolsFileCreator;
 
 /**
  * This is the main class file for WorldTools
@@ -41,11 +41,10 @@ import com.TopicaRP.WorldTools.Files.WorldToolsWordProperties;
 public class WorldTools extends JavaPlugin {
 
 	  static WorldToolsListener listener = new WorldToolsListener();
-	  static WorldToolsWordProperties filer = new WorldToolsWordProperties();
+	  static WorldToolsFileCreator filer = new WorldToolsFileCreator();
 	  static PlayerTools playertools = new PlayerTools();
 	  
 	  private static Logger log = Logger.getLogger("Minecraft");
-	  private static Object logger;
 	  
 	  static String pluginName = "WorldTools";
 	  static String version = "1.0";
@@ -53,114 +52,112 @@ public class WorldTools extends JavaPlugin {
 	  static String Updatr = "Updatr";
 	  public static String TVer = "1.0";
 	  
-	  private final static String Dir = "plugins/config/WorldTools/"; 
-	  private final static String Set = "WorldTools.properties";
-	  
 	  public static int explosionRad = 4;
-	  Server server = Bukkit.getServer();
-	  public Permission perms = null;
+	  public Permission perms;
 
-/**
- * this will load our hooks it will check if you have the latest build and it will create the configurations
- */
-public void onEnable()
-{
-	if (this.isPermissionsEnabled()){
-	getServer().getPluginManager().registerEvents(listener, this);
-	log.info(pluginName + " " + version + " by " + Author + " Enabled");
-	if(Listener.isLatest()){
-	log.info("[WorldTools] - There is an update available!");}
-	
-	Listener.LoadAll();
-	log.info("[WorldTools] - Files Created & Loaded!");
-	}else{
-		log.info("[WorldTools] Error no vault found! Disabeling WorldTools!");
-		Bukkit.getServer().getPluginManager().disablePlugin(this);
-		return;
-	}
-}
-
-public boolean isPermissionsEnabled() {
-	if (Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
-		return false;
-	}
-	RegisteredServiceProvider<Permission> rsp = getServer().getServicesManager().getRegistration(Permission.class);
-	if (rsp == null) {
-		return false;
-	}
-	perms = rsp.getProvider();
-	return perms != null;
-}
-
-public void onDisable()
-{
-	log.info(pluginName + " " + version + " by " + Author + " Disabled");
-}
-
-public static class Listener{
-    
-	// Get Folder and Dir
-	public static String getDir() {
-		return Dir;
-	}
-	// Get Properties file
-    public static String getSet() {
-	    return Set;
-    }
-    // Return both Folder and Props
-    public static String getDirSet() { 
-    	return Dir+Set;
-    }
-    // Return pluginName
-    public static String pluginName() { 
-    	return pluginName;
-    }
-    // Return pluginName
-    public static String Version() { 
-    	return version;
-    }
-    // Return Updatr logger
-    public static Object logger() { 
-    	return logger;
-    }
-    
-    public static void LoadAll() {
-    	updatr.createUpdatrFile();
-    	filer.createFiles();
-    }
-    
-    
- /**
-  * Check if your running latest version
-  * @author darkdiplomat
-  * 
-  */
-    public static boolean isLatest(){
-	String address = "http://www.topica-rp.com/Download/version.html";
-	URL url = null;
-	try {
-		url = new URL(address);
-	} catch (MalformedURLException e) {
-		return true;
-	}
-	String[] Vpre = new String[1]; 
-	BufferedReader in;
-	try {
-		in = new BufferedReader(new InputStreamReader(url.openStream()));
-		String inputLine;
-		while ((inputLine = in.readLine()) != null) {
-			if (inputLine.contains("WorldTools=")){
-				Vpre = inputLine.split("=");
-				TVer = Vpre[1].replace("</p>", "");
+	/**
+	 * this will load our hooks it will check if you have the latest build and
+	 * it will create the configurations
+	 */
+	public void onEnable() {
+		if (this.isPermissionsEnabled()) {
+			getServer().getPluginManager().registerEvents(listener, this);
+			log.info(pluginName + " " + version + " by " + Author + " Enabled");
+			if (isUpdate()) {
+				log.info("[WorldTools] - There is an update available!");
 			}
+
+			LoadFiles();
+			log.info("[WorldTools] - Files Created & Loaded!");
+		} else {
+			log.info("[WorldTools] Error no vault found! Disabeling WorldTools!");
+			Bukkit.getServer().getPluginManager().disablePlugin(this);
+			return;
 		}
-		in.close();
-	} catch (IOException e) {
-		return true;
 	}
-	return (version.equals(TVer));
-  } 
- }
+
+	/**
+	 * 
+	 * this will check if the permissions and vault are enabled
+	 * 
+	 * @return true if vault is enabled
+	 */
+	public boolean isPermissionsEnabled() {
+		if (Bukkit.getServer().getPluginManager().getPlugin("Vault") == null) {
+			return false;
+		}
+		RegisteredServiceProvider<Permission> rsp = getServer()
+				.getServicesManager().getRegistration(Permission.class);
+		if (rsp == null) {
+			return false;
+		}
+		perms = rsp.getProvider();
+		return perms != null;
+	}
+
+	/**
+	 * 
+	 * this will message whenever the plugin unloads
+	 * 
+	 */
+	public void onDisable() {
+		log.info(pluginName + " " + version + " by " + Author + " Disabled");
+	}
+
+	/**
+	 * 
+	 * this will create all files needed for WorldTools to function
+	 * 
+	 */
+	public static void LoadFiles() {
+		updatr.createUpdatrFile();
+		filer.createGlobalProperties();
+		filer.createGlobalRules();
+		filer.createCommandsFile();
+		filer.createWarpsFile();
+		filer.createMysqlFile();
+		
+		for(World w : Bukkit.getWorlds()){
+			String worldName = w.getName();
+			filer.createKitsFile(worldName);
+			filer.createHomesFile(worldName);
+			filer.createRulesFile(worldName);
+			filer.createWorldProperties(worldName);
+		}
+		
+	}
+
+	/**
+	 * Check if your running latest version
+	 * 
+	 * @author darkdiplomat
+	 * 
+	 */
+	public static boolean isUpdate() {
+		String address = "http://www.topica-rp.com/Download/version.html";
+		URL url = null;
+		try {
+			url = new URL(address);
+		} catch (MalformedURLException e) {
+			return true;
+		}
+		String[] Vpre = new String[1];
+		BufferedReader in;
+		try {
+			in = new BufferedReader(new InputStreamReader(url.openStream()));
+			String inputLine;
+			while ((inputLine = in.readLine()) != null) {
+				if (inputLine.contains("WorldTools=")) {
+					Vpre = inputLine.split("=");
+					TVer = Vpre[1].replace("</p>", "");
+				}
+			}
+			in.close();
+		} catch (IOException e) {
+			return true;
+		}
+		return (version.equals(TVer));
+	}
 }
 
 

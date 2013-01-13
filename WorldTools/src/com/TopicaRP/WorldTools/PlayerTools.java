@@ -84,6 +84,9 @@ public class PlayerTools{
 		if (label.equalsIgnoreCase("hat") && handler.hasPermission(sender, "WorldTools.hat") && handler.isCommandEnabled("hat")){
 			//put a block on a players head or your own or set it on all
 		}
+		if (label.equalsIgnoreCase("dive") && handler.hasPermission(sender, "WorldTools.dive") && handler.isCommandEnabled("dive")){
+			//put a glass block in player helmet slot so he can breath underwater
+		}
 		if (label.equalsIgnoreCase("god") && handler.hasPermission(sender, "WorldTools.god") && handler.isCommandEnabled("god")){
 			//put yourself or a player in godmode or set all in godmode
 		}
@@ -137,6 +140,7 @@ public class PlayerTools{
 		}
 		if (label.equalsIgnoreCase("rules") && handler.hasPermission(sender, "WorldTools.rules") && handler.isCommandEnabled("rules")){
 			//shows the rules (im gonna add this for mysql and properties)
+			//idea something with global rules for the whole server and local rules for each specified world
 		}
 		if (label.equalsIgnoreCase("addrule") && handler.hasPermission(sender, "WorldTools.addrule") && handler.isCommandEnabled("addrule")){
 			//adds a rule include colors /addrule &4Rule4 etc etc should return a string

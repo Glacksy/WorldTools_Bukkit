@@ -27,48 +27,39 @@ package com.TopicaRP.WorldTools;
  * tools for World
  */
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-import java.util.logging.Logger;
-
-import net.minecraft.server.v1_4_6.EntityOcelot;
-
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.PortalType;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Ocelot;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Wolf;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBurnEvent;
-import org.bukkit.event.block.BlockDispenseEvent;
-import org.bukkit.event.block.BlockFormEvent;
-import org.bukkit.event.block.BlockFromToEvent;
-import org.bukkit.event.block.BlockIgniteEvent;
-import org.bukkit.event.block.LeavesDecayEvent;
-import org.bukkit.event.block.BlockIgniteEvent.IgniteCause;
-import org.bukkit.event.block.BlockPhysicsEvent;
-import org.bukkit.event.entity.EntityCreatePortalEvent;
-import org.bukkit.event.entity.EntityDamageByBlockEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.event.world.WorldLoadEvent;
 
-public class WorldToolsListener implements Listener {   
-PlayerTools tools = new PlayerTools();
+import com.TopicaRP.WorldTools.Files.WorldToolsFileCreator;
+
+public class WorldToolsListener implements Listener {
+	
+	WorldToolsFileCreator fcreator = new WorldToolsFileCreator();
+	
+	/**
+	 * 
+	 * creates world files if they doesnt exist yet
+	 * 
+	 * @param event
+	 */
+	@EventHandler
+	public void onWorldLoad(WorldLoadEvent event){
+		String worldName = event.getWorld().getName();
+		fcreator.createKitsFile(worldName);
+		fcreator.createHomesFile(worldName);
+		fcreator.createRulesFile(worldName);
+		fcreator.createWorldProperties(worldName);
+	}
+}
+
+
+
+
+
+/**layerTools tools = new PlayerTools();
 WorldToolsVoids voids = new WorldToolsVoids();
-   /**
-    * Block onExplosion related stuff
-    * @author Glacksy
-    */
+
 
    public boolean onExplode(Block block)
    {
@@ -90,10 +81,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
      return;
    }
    
-   /**
-    * Block Portal Creating
-    * @author Glacksy
-    */
    @EventHandler
    public void EntityCreatePortal(EntityCreatePortalEvent event)
    {
@@ -109,9 +96,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	return;
    }
    
-   /**
-    * Block Portal Destroying
-    */
    public boolean onPortalDestroy(Block[][] blocks)
    {
 	if (properties.BlockPortalDestroying)
@@ -120,10 +104,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
     }
 	return;
    }
-
-   /**
-    * Prevent enderman from picking up blocks
-    */
+   
    public boolean onEndermanPickup(Enderman entity, Block block)
    {
     if (properties.DisableEndermanBlockPickup)
@@ -135,10 +116,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 
 
 
-   /**
-    * Block different types of fire stuff
-    * @author Glacksy
-    */
    @EventHandler
    public void onBlockIgnite(BlockIgniteEvent event)
    {
@@ -167,10 +144,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
      return;
    }
    
-   /**
-    * Disable water and lava flow with config
-    * @author Glacksy
-    */
    @EventHandler
    public void onBlockFromTo(BlockFromToEvent event)
    {
@@ -195,22 +168,15 @@ WorldToolsVoids voids = new WorldToolsVoids();
        }
 	return;
    }
-	/**
-	 * 
-	 * TODO: damage values support
-	 */
+   
 /*	if (DisallowLavaSpreadBlocks != null && blockFrom.getTypeId() == 10 || blockFrom.getTypeId() == 11) {
 		int a1337 = blockFrom.getWorld().getBlockTypeIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
         if (!DisallowLavaSpreadBlocks.contains(a1337)) {
             event.setCancelled(true);return;  //TODO: Test this code, added multiworld used to be etc.getServer
      //   }
-    } */
+    }
 //	return;
   // }
-	/**
-	 * TODO: Multiworld support and damage values support (damage values impossibru :O)
-	 * Does ONLY support default world at the moment
-	 */
 	/*if (DisallowWaterSpreadBlocks != null && blockFrom.getTypeId() == 8 || blockFrom.getTypeId() == 9) {
 		int a1337 = etc.getServer().getWorld(0).getBlockTypeIdAt(blockTo.getX(), blockTo.getY() - 1, blockTo.getZ());
         if (!DisallowLavaSpreadBlocks.contains(a1337)) {
@@ -218,11 +184,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
         }
     }
 	return;
-   }*/
-   
-   /**
-    * List of damage types which can be disabled
-    */
+   }
    @EventHandler
    public void onEntityDamageByBlock(EntityDamageByBlockEvent event)
    {
@@ -331,9 +293,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
      return;
    }
    
-   /**
-    * Disable block physics
-    */
    @EventHandler
    public void onBlockPhysics(BlockPhysicsEvent event)
    {
@@ -354,9 +313,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
   return;
    }
    
-   /**
-    * Disable LeafDecay
-    */
    @EventHandler
    public void onLeavesDecay(LeavesDecayEvent event)
    {
@@ -372,10 +328,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	   return;  
    }
    
-   /**
-    * Block players from eating
-    * This is also pointless but might be useful.
-    */
    public boolean onEat(Player player,ItemStack item)
    {
 	   if (properties.BlockEating && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canEat")) {
@@ -384,10 +336,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Block Dispenser
-    * This is also pointless
-    */
 @EventHandler
    public void onBlockDispense(BlockDispenseEvent event)
    {
@@ -399,10 +347,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
    }
 //TODO add unallowed dispenable items
    
-   /**
-    * Block any player from destrying farmland 
-    * by jumping or walking on it.
-    */
 @EventHandler
    public void onBlockForm(BlockFormEvent event)
    {
@@ -430,11 +374,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return;
    }
    
-   /**
-    * Disable mob despawning
-    * This can cause serverside issues and lag
-    * But the possibility is still here.. 
-    */
    public boolean onEntityDespawn(BaseEntity entity)
    {
 	   if (DisableEntityDespawning){  //TODO: add a list of mobs which shouldnt despawn
@@ -443,10 +382,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * This is pointless but i prefer having the possibility.
-    * Disable Cow Milking
-    */
    public boolean onCowMilk(Player player, Mob cow)
    {
 	   if (BlockCowMilking && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canMilk")) {
@@ -455,9 +390,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Disable lightning strikes
-    */
    @EventHandler
    public void onLightningStrike(LightningStrikeEvent event)
    {
@@ -473,11 +405,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Disable Inventories
-    * NOTE: THIS DOES NOT WORK FOR PLAYER INVENTORY ONLY DISPENSER,FURNACE AND SUCH
-    * TODO: add a inventory list you want to disable (you do it lol)
-    */
+
    public boolean onOpenInventory(Player player,Inventory inventory){
 	   if (DisableInventories) { 
 		   if (!player.canUseCommand("/ignoreinv") && !player.canUseCommand("/worldtools")){
@@ -504,11 +432,6 @@ WorldToolsVoids voids = new WorldToolsVoids();
    }
    
    
-   /**
-    * Disable item pickup
-    * TODO: blacklist of items which shouldnt be picked up with ignore command(cant work with damagevalues :))
-    * pickup blacklist should be in props, should work with damage values
-    */
    public boolean onItemPickUp(Player player, ItemEntity item)
    {
 	   if (DisableItemPickup && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canPickup")) {
@@ -517,11 +440,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Disable item dropping
-    * TODO: blacklist of items which shouldnt be dropped with ignore command(cant work with damagevalues :))
-    * Same as above
-    */
+
    public boolean onItemDrop(Player player, ItemEntity item)
    {
 	   if (DisableItemDropping && !player.canUseCommand("/worldtools") && !player.canUseCommand("/canDrop")) {
@@ -530,10 +449,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Disable weather from changing, this can cause problems if you enable it when its raining
-    * cause then it will rain forever.
-    */
+
    public boolean onWeatherChange(World world, boolean newValue)
    {
 	   if (DisableWeather) {
@@ -549,10 +465,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * Disable thunder weather from happening
-    * TODO: Set weather thunder to normal weather only if the weather is thunder.
-    */
+
    public boolean onThunderChange(World world, boolean newValue)
    {
 	   if (DisableThunderWeather)  {
@@ -563,10 +476,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return; 
    }
    
-   /**
-    * @author spenk
-    * Prevent Changing of time.
-    */
+
    public boolean onTimeChange(World world, long newValue)
    {
 	   if (DisableNightTime){
@@ -584,10 +494,7 @@ WorldToolsVoids voids = new WorldToolsVoids();
 	  return;
    }
   
-     /**
-      * sponge feature code
-      * @author spenk
-      */
+
 public boolean onBlockCreate(Player player,Block block,Block blockClicked,int itemInHand){
 	if (player.canUseCommand("/worldtools") || player.canUseCommand("/canPlaceSponge")){
 		if (block != null){
@@ -658,10 +565,6 @@ public void onPlayerMove(Player player,Location from,Location to){
 		}
 	}
 }
-/**
- * @function keep chunks loaded
- * @author Spenk
- */
 public boolean onSignChange(Player player,Sign sign){
 	PropertiesFile f = new PropertiesFile("plugins/config/WorldTools/WorldToolsChunks.properties");
 	if (sign.getText(1).equalsIgnoreCase("[LoadChunk]")){
@@ -802,6 +705,6 @@ public boolean onHealthChange(Player player, int oldValue, int newValue) {
     return;
   }
 
-}
+}*/
 //end of class
    

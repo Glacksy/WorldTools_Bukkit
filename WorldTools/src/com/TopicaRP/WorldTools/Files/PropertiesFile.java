@@ -1,4 +1,4 @@
-package com.TopicaRP.WorldTools;
+package com.TopicaRP.WorldTools.Files;
 
 import java.io.File;
 import java.io.FileInputStream;
