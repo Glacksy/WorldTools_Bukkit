@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
-import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -55,7 +54,7 @@ public class WorldToolsVoids implements Listener{
 	 * checks if a command is enabled
 	 * 
 	 * @param command
-	 * @return
+	 * @return true if the command is enabled
 	 */
 	public boolean isCommandEnabled(String command){
 		WorldToolsCommands cmdCheck = new WorldToolsCommands();
@@ -402,7 +401,7 @@ public class WorldToolsVoids implements Listener{
 	 * @param radius
 	 * @param fromid
 	 * @param toid
-	 * @return
+	 * @return amount of killed mobs
 	 */
 	public static int killMobs(Player player, int radius , int fromid, int toid){
 		
@@ -534,8 +533,9 @@ public class WorldToolsVoids implements Listener{
 		godMode.remove(player.getName());
 		return true;
 	}
+}
 
-	
+	/*
 	public static void fillarea(Block b, int radius){
 		int xmin = (int)b.getX()-radius;
 		int xmax = (int)b.getX()+radius;
@@ -552,11 +552,7 @@ public class WorldToolsVoids implements Listener{
 		}
 	  }
 	
-	/**
-	 * @param b
-	 * @param radius
-	 * @return
-	 */
+
 	public static boolean isinarea(Block b,int radius){
 		int radi = radius+1;
 		int xmin = (int)b.getX()-radi;
@@ -574,12 +570,7 @@ public class WorldToolsVoids implements Listener{
 		}
 		return false;
 	}
-/**
- * 
- * @param b
- * @param radius
- * @return
- */
+
 	public boolean isinarea2(Block b,int radius){
 		int radi = radius;
 		int xmin = (int)b.getX()-radi;
@@ -597,12 +588,7 @@ public class WorldToolsVoids implements Listener{
 		}
 		return false;
 	}
-	/**
-	 * 
-	 * @param b
-	 * @param radius
-	 * @return
-	 */
+
 		public static boolean iswater(Block b, int radius){
 			int xmin = (int)b.getX()-radius;
 			int xmax = (int)b.getX()+radius;
@@ -619,17 +605,7 @@ public class WorldToolsVoids implements Listener{
 			}
 		return false;
 	  }
-		
-	    /**
-	     * 
-	     * Setup replace feature and radius
-	     * @author Spenk
-	     *
-		 * @param player
-		 * @param from
-		 * @param to
-		 * @param radius
-		 */
+	
 	     public static void replace(Player player, int from, int to, int radius){
 	         int xmin = (int)player.getLocation().getX()-radius;
 	         int xmax = (int)player.getLocation().getX()+radius;
@@ -648,11 +624,7 @@ public class WorldToolsVoids implements Listener{
 	                   }
 	     
 	     
-	     /**
-	      * Count mobs in the world the player perform the command
-	      * @author Billyoyo
-	      * @param r
-	      */
+
 	     public static void cMob(Player player, int r)
 	     {
 	       World world = player.getWorld();
@@ -671,5 +643,5 @@ public class WorldToolsVoids implements Listener{
 	          }
 	        }
 	     
-	     }
+	     }*/
 //end of class

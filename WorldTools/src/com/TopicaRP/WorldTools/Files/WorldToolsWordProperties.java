@@ -6,7 +6,7 @@ public class WorldToolsWordProperties {
 	String directory = "plugins/config/WorldTools/";
 	Logger log = Logger.getLogger("minecraft");
 	
-	
+	//TODO getter and setter for all world properties
 	
 	/*public void loadprops(String file){
 	  properties = new PropertiesFile(file);

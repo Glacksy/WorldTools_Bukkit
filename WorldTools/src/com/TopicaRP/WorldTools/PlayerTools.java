@@ -50,6 +50,17 @@ public class PlayerTools{
 	
 	WorldToolsVoids handler = new WorldToolsVoids();
 	World world;
+	
+	/**
+	 * 
+	 * here do all commands get parsed
+	 * 
+	 * @param sender
+	 * @param cmd
+	 * @param label
+	 * @param args
+	 * @return true if you wish to end the command
+	 */
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("Tree") && handler.hasPermission(sender, "WorldTools.tree") && handler.isCommandEnabled("tree")){
 			//generate a tree /tree <type>

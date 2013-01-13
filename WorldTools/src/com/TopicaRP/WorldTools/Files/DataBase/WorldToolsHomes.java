@@ -14,6 +14,15 @@ public class WorldToolsHomes {
 	
 	Map<String,Location> homes = new HashMap<String,Location>();
 	
+	/**
+	 * 
+	 * sets a player home
+	 * 
+	 * @param world
+	 * @param player
+	 * @param loc
+	 * @return true if the action succeed
+	 */
 	public boolean setHome(String world, String player,Location loc){
 		File dir = new File("plugins/config/WorldTools/"+world+"/Homes.properties");
 		if (dir.exists()){
@@ -25,6 +34,14 @@ public class WorldToolsHomes {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if a player has a home
+	 * 
+	 * @param world
+	 * @param player
+	 * @return true if the player does have a home
+	 */
 	public boolean hasHome(String world, String player){
 		Map<String,Location> homes = getHomes(world);
 		if (homes != null){
@@ -33,6 +50,14 @@ public class WorldToolsHomes {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * gets the players home
+	 * 
+	 * @param world
+	 * @param player
+	 * @return location of players home
+	 */
 	public Location getHome(String world, String player){
 		Map<String,Location> homes = getHomes(world);
 		if (homes != null && homes.containsKey(player)){
@@ -41,6 +66,14 @@ public class WorldToolsHomes {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * removes a player home
+	 * 
+	 * @param world
+	 * @param player
+	 * @return true if the action was succeed
+	 */
 	public boolean removeHome(String world, String player){
 		if (hasHome(world,player)){
 			PropertiesFile data = new PropertiesFile("plugins/config/WorldTools/"+world+"/Homes.properties"); 
@@ -50,6 +83,13 @@ public class WorldToolsHomes {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * returns a list of all homes in a world
+	 * 
+	 * @param world
+	 * @return Map<String,String> of all homes in a world
+	 */
 	public Map<String,Location> getHomes(String world){
 		File dir = new File("plugins/config/WorldTools/"+world+"/Homes.properties");
 		Map<String, Location> homes = new HashMap<String,Location>();

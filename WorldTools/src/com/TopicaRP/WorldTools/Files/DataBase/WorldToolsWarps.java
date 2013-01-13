@@ -14,6 +14,14 @@ public class WorldToolsWarps {
 
 	public String directory = "plugins/config/WorldTools/Warps.properties";
 	
+	/**
+	 * 
+	 * creates a new warp
+	 * 
+	 * @param warp
+	 * @param loc
+	 * @return true if the action succeed
+	 */
 	public boolean setWarp(String warp, Location loc){
 		File dir = new File(directory);
 		if (dir.exists()){
@@ -25,6 +33,13 @@ public class WorldToolsWarps {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * check is a warp exists
+	 * 
+	 * @param warp
+	 * @return true if the warp exists
+	 */
 	public boolean existsWarp(String warp){
 		Map<String,Location> warps = getWarps();
 		if (warps != null){
@@ -33,6 +48,13 @@ public class WorldToolsWarps {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * gets the location of a warp
+	 * 
+	 * @param warp
+	 * @return Location of a warp
+	 */
 	public Location getWarp(String warp){
 		Map<String,Location> warps = getWarps();
 		if (warps != null && warps.containsKey(warp)){
@@ -41,6 +63,13 @@ public class WorldToolsWarps {
 		return null;
 	}
 	
+	/**
+	 * 
+	 * removes a warp
+	 * 
+	 * @param warp
+	 * @return true if the action succeed
+	 */
 	public boolean removeWarp(String warp){
 		if (existsWarp(warp)){
 			PropertiesFile data = new PropertiesFile(directory); 
@@ -50,6 +79,12 @@ public class WorldToolsWarps {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * gets all warps
+	 * 
+	 * @return Map<String,String> of all warps
+	 */
 	public Map<String,Location> getWarps(){
 		File dir = new File(directory);
 		Map<String, Location> warps = new HashMap<String,Location>();

@@ -58,7 +58,6 @@ public class WorldToolsRules {
 		rules.removeKey(ruleNumber+"");
 	}
 	
-	
 	/**
 	 * 
 	 * gets all global rules

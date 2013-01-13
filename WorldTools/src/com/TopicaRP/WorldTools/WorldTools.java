@@ -127,11 +127,12 @@ public class WorldTools extends JavaPlugin {
 		
 	}
 
+
 	/**
-	 * Check if your running latest version
 	 * 
-	 * @author darkdiplomat
+	 * checks if you are running the latest WorldTools
 	 * 
+	 * @return true if you are running an old version
 	 */
 	public static boolean isUpdate() {
 		String address = "http://www.topica-rp.com/Download/version.html";

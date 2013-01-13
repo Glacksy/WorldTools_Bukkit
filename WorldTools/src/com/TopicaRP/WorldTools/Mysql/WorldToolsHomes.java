@@ -58,7 +58,19 @@ public class WorldToolsHomes {
         }
 		return homes;
 }
+	
+	public boolean hasHome(String player, String world){
+		return getHomes(world).containsKey(player);
+	}
+	
+	public Location getHome(String player, String world){
+		if (getHomes(world).containsKey(player)){
+		return getHomes(world).get(player);
+		}
+		return null;
+	}
 
+	
 public boolean addHome(String world, String player, Location loc) {
     Connection conn = null;
     PreparedStatement ps = null;

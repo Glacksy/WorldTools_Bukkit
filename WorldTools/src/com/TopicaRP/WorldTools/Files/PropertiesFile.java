@@ -45,8 +45,7 @@ public class PropertiesFile {
 	            } catch (IOException ex) {}
 	        }
 	    }
-
-
+	    
 	    public void save() {
 	        FileOutputStream stream = null;
 
