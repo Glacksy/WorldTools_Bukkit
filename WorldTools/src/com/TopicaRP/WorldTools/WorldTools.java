@@ -27,7 +27,6 @@ import java.util.logging.Logger;
 import net.milkbowl.vault.permission.Permission;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Server;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -56,9 +55,6 @@ public class WorldTools extends JavaPlugin {
 	  
 	  private final static String Dir = "plugins/config/WorldTools/"; 
 	  private final static String Set = "WorldTools.properties";
-	  
-	  private static Location exactSpawn = null;
-	  private static PropertiesFile Settings;
 	  
 	  public static int explosionRad = 4;
 	  Server server = Bukkit.getServer();

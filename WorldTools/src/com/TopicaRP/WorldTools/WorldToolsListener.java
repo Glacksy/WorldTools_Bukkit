@@ -63,7 +63,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 
 public class WorldToolsListener implements Listener {   
-WorldToolsProperties properties = new WorldToolsProperties();
 PlayerTools tools = new PlayerTools();
 WorldToolsVoids voids = new WorldToolsVoids();
    /**
