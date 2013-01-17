@@ -18,9 +18,9 @@ public class WorldToolsFileWriter {
 	 * @param file
 	 * @param world
 	 */
-	public void writeWorldProperties(File f, String world) {
+	public void writeWorldProperties(File file, String world) {
 		try {
-			BufferedWriter out = new BufferedWriter(new FileWriter(f));
+			BufferedWriter out = new BufferedWriter(new FileWriter(file));
 			out.write("#=====================================================#");
 			out.newLine();
 			out.write("#====WorldTools settings file, for world " + world +"====#");
@@ -300,7 +300,7 @@ public class WorldToolsFileWriter {
 	 * 
 	 * this will write the MySQL file
 	 * 
-	 * @param f
+	 * @param file
 	 */
 	public void writeMysql(File file) {
 		try {

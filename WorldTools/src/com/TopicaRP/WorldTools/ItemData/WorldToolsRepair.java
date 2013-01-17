@@ -31,6 +31,14 @@ public class WorldToolsRepair {
 	double cdiamond;
 	double ccstring;
 	
+/**
+ * 
+ * repairs the item
+ * 
+ * @param item
+ * @param needItem
+ * @return amount of repaired damage
+ */
 	public int repairItem(ItemStack item, boolean needItem){
 		if (!needItem){
 			
@@ -40,6 +48,13 @@ public class WorldToolsRepair {
 		return 0;
 	}
 	
+	/**
+	 * 
+	 * checks if the item needs wood to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs wood
+	 */
 	public boolean isWood(ItemStack item){
 		switch(item.getTypeId()){
 		case 268: return true;
@@ -51,6 +66,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item needs leather to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs leather
+	 */
 	public boolean isLeather(ItemStack item){
 		switch(item.getTypeId()){
 		case 298: return true;
@@ -61,6 +83,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 
+	/**
+	 * 
+	 * checks if the item needs stone to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs stone
+	 */
 	public boolean isStone(ItemStack item){
 		switch(item.getTypeId()){
 		case 272: return true;
@@ -72,6 +101,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item needs chain to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs chain
+	 */
 	public boolean isChain(ItemStack item){
 		switch(item.getTypeId()){
 		case 302: return true;
@@ -81,6 +117,14 @@ public class WorldToolsRepair {
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * checks if the item needs iron to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs iron
+	 */
 	public boolean isIron(ItemStack item){
 		switch(item.getTypeId()){
 		case 256: return true;
@@ -97,6 +141,14 @@ public class WorldToolsRepair {
 		}
 		return false;
 	}
+	
+	/**
+	 * 
+	 * checks if the item needs gold to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs gold
+	 */
 	public boolean isGold(ItemStack item){
 		switch(item.getTypeId()){
 		case 283: return true;
@@ -112,6 +164,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item needs diamond to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs diamond
+	 */
 	public boolean isDiamond(ItemStack item){
 		switch(item.getTypeId()){
 		case 276: return true;
@@ -127,6 +186,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item needs string to be repaired
+	 * 
+	 * @param item
+	 * @return true if the item needs string
+	 */
 	public boolean isString(ItemStack item){
 		switch(item.getTypeId()){
 		case 346: return true;
@@ -135,6 +201,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item is a tool
+	 * 
+	 * @param item
+	 * @return true if the item is a tool
+	 */
 	public boolean isTool(ItemStack item){
 		switch(item.getTypeId()){
 		
@@ -142,6 +215,13 @@ public class WorldToolsRepair {
 		return false;
 	}
 	
+	/**
+	 * 
+	 * checks if the item is Armour
+	 * 
+	 * @param item
+	 * @return true if the item is Armour
+	 */
 	public boolean isArmour(ItemStack item){
 		switch(item.getTypeId()){
 		

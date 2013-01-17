@@ -39,7 +39,7 @@ public class WorldToolsVoids implements Listener{
 	 * checks if a player has decent permissions
 	 *
 	 * @param player
-	 * @param permission
+	 * @param permissionLabel
 	 */
 	public boolean hasPermission(CommandSender player, String permissionLabel){
 		if (player.isOp()){

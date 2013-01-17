@@ -24,13 +24,7 @@ import org.bukkit.entity.Player;
 
 /**
  * @author Spenk & Glacksy
- * @category player Listener
  * @version 1.0
- * 
- * @description
- * tools for players
- * and admins
- *
  */
 public class PlayerTools{
 	
@@ -309,9 +303,16 @@ public class PlayerTools{
 		if (label.equalsIgnoreCase("item")&& handler.hasPermission(sender, "WorldTools.item") && handler.isCommandEnabled("item")){
 			//gives yourself or a player an item
 		}
+		if ((label.equalsIgnoreCase("nick") || label.equalsIgnoreCase("nickname")) && handler.hasPermission(sender, "WorldTools.nickname")&&handler.isCommandEnabled("nickname")){
+			//Nicks the player
+		}
+		if (label.equalsIgnoreCase("tag") && handler.hasPermission(sender, "WorldTools.tag")&&handler.isCommandEnabled("tag")){
+			//sets the tag above a players head
+		}
 		
 		return false;
 	}
+	/*
 	//playertime = change the time for the player
 	//change speed limits ?
 	//mail
@@ -329,7 +330,7 @@ public class PlayerTools{
 	//jail commands
 	//display server lagg memory etc
 	//invsee ??
-	//setbiome
+	//setbiome*/
 }
 	 
 
