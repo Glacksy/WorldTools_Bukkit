@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.block.Block;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -102,6 +103,8 @@ public class WorldToolsVoids implements Listener{
 	}
 	
 	/**
+	 * 
+	 * kills players
 	 * 
 	 * @param world
 	 * @param player
@@ -510,6 +513,7 @@ public class WorldToolsVoids implements Listener{
 	 * @return true if action succeed
 	 * @return false if player is already in godmode
 	 */
+	@Deprecated
 	public boolean addGodMode(Player player){
 		if (!godMode.contains(player.getName())){
 			godMode.add(player.getName());
@@ -526,6 +530,7 @@ public class WorldToolsVoids implements Listener{
 	 * @return true if action succeed
 	 * @return false if player is not in godmode
 	 */
+	@Deprecated
 	public boolean removeGodMode(Player player){
 		if (!godMode.contains(player.getName())){
 			return false;
@@ -533,6 +538,18 @@ public class WorldToolsVoids implements Listener{
 		godMode.remove(player.getName());
 		return true;
 	}
+
+	/**
+	 * 
+	 * gets the block a player is looking at
+	 * 
+	 * @param player
+	 * @return target Block
+	 */
+	public Block getBlockTarget(Player player){
+		return player.getTargetBlock(null, 100);
+	}
+
 }
 
 	/*

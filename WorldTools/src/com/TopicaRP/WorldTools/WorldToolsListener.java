@@ -29,6 +29,20 @@ package com.TopicaRP.WorldTools;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockDispenseEvent;
+import org.bukkit.event.block.BlockExpEvent;
+import org.bukkit.event.block.BlockFadeEvent;
+import org.bukkit.event.block.BlockFormEvent;
+import org.bukkit.event.block.BlockFromToEvent;
+import org.bukkit.event.block.BlockGrowEvent;
+import org.bukkit.event.block.BlockIgniteEvent;
+import org.bukkit.event.block.BlockPhysicsEvent;
+import org.bukkit.event.block.BlockPistonExtendEvent;
+import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.bukkit.event.block.BlockSpreadEvent;
+import org.bukkit.event.block.EntityBlockFormEvent;
+import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import com.TopicaRP.WorldTools.Files.WorldToolsFileCreator;
@@ -51,6 +65,86 @@ public class WorldToolsListener implements Listener {
 		fcreator.createRulesFile(worldName);
 		fcreator.createWorldProperties(worldName);
 	}
+	
+	@EventHandler
+	public void onLeavesDecay(LeavesDecayEvent event){
+		//TODO prevent some kinds of leaves to decay
+		//TODO instant decay
+	}
+	
+	@EventHandler 
+	public void onBlockSpread(BlockSpreadEvent event){
+		//TODO allow / deny any spreadable block
+	}
+	
+	@EventHandler
+	public void onBlockPistonRetract(BlockPistonRetractEvent event){
+		//TODO piston burn
+		//TODO piston break
+		//TODO allowed pullables
+	}
+	
+	@EventHandler
+	public void onBlockPistonExtend(BlockPistonExtendEvent event){
+		//TODO piston burn
+		//TODO piston break
+		//TODO allowed pushables
+	}
+	
+	@EventHandler
+	public void onBlockPhysics(BlockPhysicsEvent event){
+		//TODO prevent block physics
+	}
+	
+	@EventHandler
+	public void onBlockIgnite(BlockIgniteEvent event){
+		//TODO prevent ignite blocks
+		//TODO allow certain blocks to ignite
+	}
+	
+	@EventHandler
+	public void onBlockGrow(BlockGrowEvent event){
+	//TODO prevent grow from some kinds of plants	
+	}
+	
+	@EventHandler
+	public void onBlockFromTo(BlockFromToEvent event){
+		//TODO deny liquid flow over certain blocks / break certain blocks
+		//TODO prevent enderegg to move
+	}
+	
+	@EventHandler
+	public void onBlockForm(BlockFormEvent event){
+		//TODO deny ice to form / snow to form /	
+	}
+	
+	@EventHandler
+	public void onBlockFade(BlockFadeEvent event){
+		//TODO deny ice to melt / snow to melt 
+	}
+	
+	@EventHandler
+	public void onBlockExp(BlockExpEvent event){
+		//TODO set block xp
+	}
+	
+	@EventHandler
+	public void onBlockDispense(BlockDispenseEvent event){
+		//TODO deny / allow a dispenser to dispense
+		//TODO allow / deny certain blocks to be dispensed
+	}
+	
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event){
+		//TODO allow / deny certain blocks to be broken
+	}
+	
+	@EventHandler
+	public void onEntityBlockForm(EntityBlockFormEvent event){
+		//TODO allow / deny snow created by snowman
+		//TODO allow / deny blocks created by enderman
+	}
+	 
 }
 
 

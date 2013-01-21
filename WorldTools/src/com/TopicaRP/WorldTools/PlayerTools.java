@@ -58,94 +58,125 @@ public class PlayerTools{
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if (label.equalsIgnoreCase("Tree") && handler.hasPermission(sender, "WorldTools.tree") && handler.isCommandEnabled("tree")){
 			//generate a tree /tree <type>
+			//bukkit function
 		}
 		if (label.equalsIgnoreCase("Break") && handler.hasPermission(sender, "WorldTools.break") && handler.isCommandEnabled("break")){
 			//breaks blocks you are looking at /break (radius)
+			//bukkit function
+			//target block from voids
 		}
 		if (label.equalsIgnoreCase("Explode") && handler.hasPermission(sender, "WorldTools.explode") && handler.isCommandEnabled("explode")){
 			//creates an explosion with given power at location
+			//bukkit function
 		}
 		if (label.equalsIgnoreCase("Enchant") && handler.hasPermission(sender, "WorldTools.enchant") && handler.isCommandEnabled("enchant")){
 			//enchant command /enchant type power etc etc
+			//TODO needs void write
 		}
 		if (label.equalsIgnoreCase("Feed") && handler.hasPermission(sender, "WorldTools.feed") && handler.isCommandEnabled("feed")){
 			//feed a player or yourself or feed all
+			//feedPlayers in voids
 		}
 		if (label.equalsIgnoreCase("heal") && handler.hasPermission(sender, "WorldTools.heal") && handler.isCommandEnabled("heal")){
 			//heal a player or yourself or heal all
+			//healPlayers in voids
 		}
 		if (label.equalsIgnoreCase("starvate") && handler.hasPermission(sender, "WorldTools.starvate") && handler.isCommandEnabled("starvate")){
 			//starvate a player or yourself or starvate all
+			//starvatePlayers in voids
 		}
 		if (label.equalsIgnoreCase("slap") && handler.hasPermission(sender, "WorldTools.slap") && handler.isCommandEnabled("slap")){
 			//slap a player or yourself or slap all
+			//slapPlayers in voids
 		}
 		if (label.equalsIgnoreCase("maim") && handler.hasPermission(sender, "WorldTools.maim") && handler.isCommandEnabled("maim")){
 			//maim a player or yourself to an inch of their live or maim all
+			//maimPlayers in voids
 		}
 		if (label.equalsIgnoreCase("kill") && handler.hasPermission(sender, "WorldTools.kill") && handler.isCommandEnabled("kill")){
 			//kill a player or yourself or kill all
+			//killPlayers in voids
 		}
 		if (label.equalsIgnoreCase("hat") && handler.hasPermission(sender, "WorldTools.hat") && handler.isCommandEnabled("hat")){
 			//put a block on a players head or your own or set it on all
+			//putHat in voids
 		}
 		if (label.equalsIgnoreCase("dive") && handler.hasPermission(sender, "WorldTools.dive") && handler.isCommandEnabled("dive")){
 			//put a glass block in player helmet slot so he can breath underwater
+			//TODO needs sql conn
 		}
 		if (label.equalsIgnoreCase("god") && handler.hasPermission(sender, "WorldTools.god") && handler.isCommandEnabled("god")){
 			//put yourself or a player in godmode or set all in godmode
+			//TODO needs sql conn
 		}
 		if (label.equalsIgnoreCase("kit") && handler.hasPermission(sender, "WorldTools.kit") && handler.isCommandEnabled("kit")){
 			//give yourself or a player a kit or give all a kit
+			//TODO kits system has to be made
 		}
 		if (label.equalsIgnoreCase("home") && handler.hasPermission(sender, "WorldTools.home") && handler.isCommandEnabled("home")){
 			//warp a player or yourself to home or home all
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("spawn") && handler.hasPermission(sender, "WorldTools.spawn") && handler.isCommandEnabled("spawn")){
 			//warp a player or yourself to spawn or spawn all
+			//bukkit function
 		}
 		if (label.equalsIgnoreCase("warplist") && handler.hasPermission(sender, "WorldTools.warplist") && handler.isCommandEnabled("warplist")){
 			//sends a list of warps
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("warp") && handler.hasPermission(sender, "WorldTools.warp") && handler.isCommandEnabled("warp")){
 			//warp a player or yourself to a warp or warp all
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("sethome") && handler.hasPermission(sender, "WorldTools.sethome") && handler.isCommandEnabled("sethome")){
 			//setwarp a player or yourself to sethome or home all
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("setspawn") && handler.hasPermission(sender, "WorldTools.setspawn") && handler.isCommandEnabled("setspawn")){
 			//setwarp a player or yourself to setspawn or spawn all
+			//bukkit function
 		}
 		if (label.equalsIgnoreCase("setwarp") && handler.hasPermission(sender, "WorldTools.setwarp") && handler.isCommandEnabled("setwarp")){
 			//setwarp a player or yourself to a setwarp or warp all
+			//dataparser
 		}
 		if ((label.equalsIgnoreCase("removewarp") || (label.equalsIgnoreCase("deletewarp") || label.equalsIgnoreCase("deletewarp"))) && handler.hasPermission(sender, "WorldTools.removewarp") && handler.isCommandEnabled("removewarp")){
 			//setwarp a player or yourself to a setwarp or warp all
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("repair") && handler.hasPermission(sender, "WorldTools.repair") && handler.isCommandEnabled("repair")){
 			//repairs the item in your hand
+			//repair package
 		}
 		if (label.equalsIgnoreCase("afk") && handler.hasPermission(sender, "WorldTools.afk") && handler.isCommandEnabled("afk")){
 			//puts your status on afk or back - all messages / things sent to a player must be in mail form
+			//TODO chat package (also afk kick)
 		}
 		if (label.equalsIgnoreCase("pos") && handler.hasPermission(sender, "WorldTools.pos") && handler.isCommandEnabled("pos")){
 			//get your position and heading
+			//bukkit function
 		}
 		if ((label.equalsIgnoreCase("msg") || label.equalsIgnoreCase("m")) && handler.hasPermission(sender, "WorldTools.msg") && handler.isCommandEnabled("msg")){
 			//message a player //show in logs // and add admin can see support
+			//TODO chat pakage
 		}
 		if ((label.equalsIgnoreCase("reply") || label.equalsIgnoreCase("r")) && handler.hasPermission(sender, "WorldTools.reply") && handler.isCommandEnabled("reply")){
 			//reply on your message
+			//TODO chat package
 		}
 		if ((label.equalsIgnoreCase("me")||label.equalsIgnoreCase("emote")) && handler.hasPermission(sender, "WorldTools.me") && handler.isCommandEnabled("me")){
 			//says an action you could do /me color message ? or /me message
+			//TODO chat package
 		}
 		if ((label.equalsIgnoreCase("pinfo") || label.equalsIgnoreCase("whois") || label.equalsIgnoreCase("playerinfo")) && handler.hasPermission(sender, "WorldTools.playerinfo") && handler.isCommandEnabled("playerinfo")){
 			//shows all player data ip location world name nick group etc etc
+			//bukkit functions
 		}
 		if (label.equalsIgnoreCase("rules") && handler.hasPermission(sender, "WorldTools.rules") && handler.isCommandEnabled("rules")){
 			//shows the rules (im gonna add this for mysql and properties)
 			//idea something with global rules for the whole server and local rules for each specified world
+			//dataparser
 		}
 		if (label.equalsIgnoreCase("addrule") && handler.hasPermission(sender, "WorldTools.addrule") && handler.isCommandEnabled("addrule")){
 			//adds a rule include colors /addrule &4Rule4 etc etc should return a string
