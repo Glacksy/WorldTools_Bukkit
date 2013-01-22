@@ -27,6 +27,7 @@ package com.TopicaRP.WorldTools;
  * tools for World
  */
 
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -46,10 +47,12 @@ import org.bukkit.event.block.LeavesDecayEvent;
 import org.bukkit.event.world.WorldLoadEvent;
 
 import com.TopicaRP.WorldTools.Files.WorldToolsFileCreator;
+import com.TopicaRP.WorldTools.Files.WorldToolsWordProperties;
 
 public class WorldToolsListener implements Listener {
 	
 	WorldToolsFileCreator fcreator = new WorldToolsFileCreator();
+	WorldToolsWordProperties props = new WorldToolsWordProperties();
 	
 	/**
 	 * 
@@ -66,12 +69,37 @@ public class WorldToolsListener implements Listener {
 		fcreator.createWorldProperties(worldName);
 	}
 	
+	/**
+	 * 
+	 * this will handle leave decay
+	 * 
+	 * @param event
+	 */
 	@EventHandler
 	public void onLeavesDecay(LeavesDecayEvent event){
-		//TODO prevent some kinds of leaves to decay
+		String worldName = event.getBlock().getWorld().getName();
+		Block block = event.getBlock();
+		
+		if (!props.getDecay(worldName)){
+			event.setCancelled(true);
+			return;
+		}
+		
+		if (!props.getDecayList(worldName).contains(block.getData())){
+			event.setCancelled(true);
+			return;
+		}
+		
+		//TODO custom drops
 		//TODO instant decay
 	}
 	
+	/**
+	 * 
+	 * 
+	 * 
+	 * @param event
+	 */
 	@EventHandler 
 	public void onBlockSpread(BlockSpreadEvent event){
 		//TODO allow / deny any spreadable block
@@ -137,6 +165,7 @@ public class WorldToolsListener implements Listener {
 	@EventHandler
 	public void onBlockBreak(BlockBreakEvent event){
 		//TODO allow / deny certain blocks to be broken
+		//TODO treefeller
 	}
 	
 	@EventHandler

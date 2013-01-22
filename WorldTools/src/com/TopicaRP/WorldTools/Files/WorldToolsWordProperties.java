@@ -1,12 +1,24 @@
 package com.TopicaRP.WorldTools.Files;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Logger;
 
 public class WorldToolsWordProperties {
 	String directory = "plugins/config/WorldTools/";
 	Logger log = Logger.getLogger("minecraft");
 	
-	//TODO getter and setter for all world properties
+	
+	public boolean getDecay(String worldName){
+		PropertiesFile f = new PropertiesFile(directory+worldName+"/WorldProperties.properties");
+		return Boolean.parseBoolean(f.getProperty("Decay"));//TODO
+	}
+	
+	public List<String> getDecayList(String worldName){
+		PropertiesFile f = new PropertiesFile(directory+worldName+"/WorldProperties.properties");
+		return Arrays.asList(f.getProperty("DecayLeaves").split(","));
+	}
+	
 	
 	/*public void loadprops(String file){
 	  properties = new PropertiesFile(file);

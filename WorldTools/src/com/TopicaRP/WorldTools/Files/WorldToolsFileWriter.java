@@ -27,7 +27,13 @@ public class WorldToolsFileWriter {
 			out.newLine();
 			out.write("#=====================================================#");
 			out.newLine();
-			out.write(" ");
+			out.write("#Decay Settings");
+			out.newLine();
+			out.write("#set the leaveDamage value of the leaves you want to allow to decay under DecayLeaves");
+			out.newLine();
+			out.write("Decay=true");
+			out.newLine();
+			out.write("DecayLeaves=0,1,2,3");
 			out.newLine();
 			/**
 			 * out.write("#Block fire from spreading"); out.newLine();
